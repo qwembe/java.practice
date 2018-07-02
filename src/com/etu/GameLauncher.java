@@ -26,9 +26,11 @@ public class GameLauncher extends JFrame {
         log = new JPanel();
         log.setPreferredSize(new Dimension(50, 50));
 
+
         JPanel rootPanel = new JPanel();
         rootPanel.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
+
 
         toolBarConfig(c);
         rootPanel.add(toolBar, c);
