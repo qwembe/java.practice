@@ -20,11 +20,11 @@ public class Model {
     }
 
 
-    private double countHeuristic(int x, int y){
-        return Math.sqrt(Math.pow((finish.y - y), 2) + Math.pow((finish.x - x), 2));
+    private static double countHeuristic(int curX, int curY, int finX, int finY){
+        return Math.sqrt(Math.pow((finY - curY), 2) + Math.pow((finX - curX), 2));
     }
 
-    public Model load(Scanner scanner)
+    public static Model load(Scanner scanner)
     {
         Field field = Field.load(scanner);
         Point start = new Point(scanner.nextInt(), scanner.nextInt());
@@ -32,7 +32,8 @@ public class Model {
         double[][] heuristic = new double[field.getNumRows()][field.getNumColumns()];
         for (int i = 0; i < field.getNumRows(); i++) {
             for (int j = 0; j < field.getNumColumns(); j++) {
-                heuristic[i][j] = countHeuristic(i, j);
+
+                heuristic[i][j] = countHeuristic(i, j, finish.x, finish.y);
             }
 
         }

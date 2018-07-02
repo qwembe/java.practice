@@ -22,7 +22,7 @@ public class Controller {
     public void implementAstar() {
 
         model.getField().setSectorActive(model.getStart().x, model.getFinish().y);
-        Map from = new HashMap<>()
+        Map from = new HashMap<>();
 
 
     }
