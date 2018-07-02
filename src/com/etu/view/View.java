@@ -15,7 +15,7 @@ public class View {
     private Graphics graphics;
 
     public void draw(Model model) {
-        drawHeader();
+        //drawHeader();
         drawField(model.getField());
         //drawCheckPoints(model.getBonuses());
         //drawFinishPoint(model.getFinish());
@@ -24,16 +24,16 @@ public class View {
 
    /* @SuppressWarnings("SuspiciousNameCombination") */
     private void drawHeader() {
-        int height = HEADER_HEIGHT - 2;
-        graphics.drawRect(0, 0, CELL_SIZE * 10, 0, Color.HEADER.getRGB());
-        graphics.drawRect(0, 0, CELL_SIZE * 10, 2, Color.BORDER.getRGB());
+       // int height = HEADER_HEIGHT - 2;
+       graphics.drawRect(0, 0, CELL_SIZE * 10, 25, Color.WALL.getRGB());
+       graphics.drawRect(0, 0, CELL_SIZE * 10, 2, Color.BALL.getRGB());
     }
 
     private void drawField(Field field) {
         for (int x = 0; x < field.getNumRows(); x++) {
             for (int y = 0; y < field.getNumColumns(); y++) {
                 Color color = field.getSector(x, y) == Field.Sector.WALL ? Color.WALL : Color.GROUND;
-                graphics.drawRect(HEADER_HEIGHT + x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, color.getRGB());
+                graphics.drawRect( x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, color.getRGB());
             }
         }
     }

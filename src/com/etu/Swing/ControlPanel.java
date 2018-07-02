@@ -13,21 +13,23 @@ public class ControlPanel extends JPanel {
     private final JButton next = createButton("Next step");
 
     public ControlPanel() {
-        super(new FlowLayout());
+        super();
         add(load);
         add(start);
         add(stop);
         add(resume);
         add(restart);
         add(next);
+        setLayout(new FlowLayout());
+
     }
 
     private JButton createButton(String text){//, int x, int y) {
         JButton b = new JButton(text);
-        //left.setBounds(x, y, 30, 30);
+        //b.setBounds(x, y, 30, 30);
         b.setPreferredSize(new Dimension(100,25));
-        b.setFocusPainted(false);
-        b.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        //b.setFocusPainted(false);
+        //b.setBorder(BorderFactory.createEmptyBorder(1, 0, 0, 0));
         return b;
     }
 

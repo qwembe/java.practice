@@ -7,11 +7,9 @@ import java.awt.*;
 
 public class SwingGraphicsAdapter implements Graphics {
 
-    private final JFrame mainFrame;
     private final java.awt.Graphics graphics;
 
-    public SwingGraphicsAdapter(JFrame mainFrame, java.awt.Graphics graphics) {
-        this.mainFrame = mainFrame;
+    public SwingGraphicsAdapter(java.awt.Graphics graphics) {
         this.graphics = graphics;
     }
 
@@ -35,7 +33,7 @@ public class SwingGraphicsAdapter implements Graphics {
         graphics.setColor(new Color(rgb));
         graphics.drawChars(symbols, 0, symbols.length, x, y);
     }
-
+/*
     @Override
     public void showCongratsDialog() {
         JOptionPane.showConfirmDialog(mainFrame, "You are winner!", "Congratulations", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
@@ -44,5 +42,6 @@ public class SwingGraphicsAdapter implements Graphics {
     @Override
     public void showNeedMoreBonusesDialog() {
         JOptionPane.showConfirmDialog(mainFrame, "Need to take all bonuses to win!", "Information", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE);
-    }
+    }*/
+
 }

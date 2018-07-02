@@ -26,25 +26,35 @@ public class GameLauncher extends JFrame {
         canvas.setPreferredSize(new Dimension(500, 500));
 
         toolBar = new ControlPanel();
-        toolBar.setPreferredSize(new Dimension(700, 100));
+        toolBar.setPreferredSize(new Dimension(700, 75));
 
         log = new JPanel();
         log.setPreferredSize(new Dimension(50, 50));
 
-
         JPanel rootPanel = new JPanel();
-        rootPanel.setLayout(new GridBagLayout());
+        GridBagLayout gbl = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
 
+        /*
+            next 3 command sets tree components on jframe
+            where c is param
+            gbl - my GridBagLayot
+        */
 
         toolBarConfig(c);
-        rootPanel.add(toolBar, c);
+        gbl.setConstraints(toolBar,c);
+        rootPanel.add(toolBar);
+
 
         canvasConfig(c);
+        gbl.setConstraints(canvas,c);
         rootPanel.add(canvas,c);
 
         logConfig(c);
+        gbl.setConstraints(log,c);
         rootPanel.add(log,c);
+
+        rootPanel.setLayout(gbl);
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setContentPane(rootPanel);
@@ -62,7 +72,7 @@ public class GameLauncher extends JFrame {
         View view = new View();
         Controller controller = new Controller(model,view);
 
-        view.setGraphics(new SwingGraphicsAdapter(this, canvas.getGraphics()));
+        view.setGraphics(new SwingGraphicsAdapter(canvas.getGraphics()));
 
 
 
@@ -75,31 +85,45 @@ public class GameLauncher extends JFrame {
     }
 
     private void toolBarConfig(GridBagConstraints c) {
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = GridBagConstraints.NORTH;
-        c.gridy = GridBagConstraints.WEST;
-        c.gridheight = 1;
-        c.gridwidth = 3;
         c.anchor = GridBagConstraints.CENTER;
-
+        c.fill   = GridBagConstraints.VERTICAL;
+        c.gridheight = 1;
+        c.gridwidth  = GridBagConstraints.REMAINDER;
+        c.gridx = GridBagConstraints.RELATIVE;
+        c.gridy = GridBagConstraints.RELATIVE;
+        c.insets = new Insets(25, 0, 0, 0);
+        c.ipadx = 0;
+        c.ipady = 0;
+        c.weightx = 1;
+        c.weighty = 1;
     }
 
     private void canvasConfig(GridBagConstraints c) {
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = GridBagConstraints.NORTH;
-        c.gridy = GridBagConstraints.WEST;
-        c.gridheight = 2;
-        c.gridwidth = 2;
         c.anchor = GridBagConstraints.CENTER;
+        c.fill   = GridBagConstraints.BOTH;
+        c.gridheight = 3;
+        c.gridwidth  = 3;
+        c.gridx = GridBagConstraints.RELATIVE;
+        c.gridy = GridBagConstraints.RELATIVE;
+        c.insets = new Insets(0, 0, 0, 0);
+        c.ipadx = 0;
+        c.ipady = 0;
+        c.weightx = 0.5;
+        c.weighty = 0.5;
     }
 
     private void logConfig(GridBagConstraints c) {
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = GridBagConstraints.NORTH;
-        c.gridy = GridBagConstraints.WEST;
-        c.gridheight = 2;
-        c.gridwidth = 1;
         c.anchor = GridBagConstraints.CENTER;
+        c.fill   = GridBagConstraints.BOTH;
+        c.gridheight = GridBagConstraints.REMAINDER;
+        c.gridwidth  = GridBagConstraints.REMAINDER;
+        c.gridx = GridBagConstraints.RELATIVE;
+        c.gridy = GridBagConstraints.RELATIVE;
+        c.insets = new Insets(0, 0, 0, 0);
+        c.ipadx = 0;
+        c.ipady = 0;
+        c.weightx = 0.5;
+        c.weighty = 0.5;
     }
 
 }
