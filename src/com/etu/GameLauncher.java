@@ -24,7 +24,7 @@ public class GameLauncher extends JFrame {
         log = new JPanel();
         log.setPreferredSize(new Dimension(50,50));
 
-        J
+
 
 
 
