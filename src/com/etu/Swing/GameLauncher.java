@@ -1,7 +1,12 @@
-package com.etu;
+package com.etu.Swing;
+
+import com.etu.controller.Controller;
+import com.etu.model.Model;
+import com.etu.view.View;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Scanner;
 
 public class GameLauncher extends JFrame {
 
@@ -47,12 +52,17 @@ public class GameLauncher extends JFrame {
         setLocationRelativeTo(null);
 
 
+        initListeners();
     }
 
     private void initListeners(){
 
-        /*
-        Controller controller = new Controller();
+        Scanner scanner = new Scanner(GameLauncher.class.getResourceAsStream("data/level1.dat"));
+        Model model = Model.load(scanner);
+        View view = new View();
+        Controller controller = new Controller(model,view);
+
+        view.setGraphics(new SwingGraphicsAdapter(this, canvas.getGraphics()));
 
 
 
@@ -61,7 +71,7 @@ public class GameLauncher extends JFrame {
             canvas.requestFocus();
         });
         timer.setRepeats(true);
-        timer.start();*/
+        timer.start();
     }
 
     private void toolBarConfig(GridBagConstraints c) {

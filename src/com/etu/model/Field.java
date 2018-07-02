@@ -1,4 +1,4 @@
-package com.etu;
+package com.etu.model;
 import java.util.Scanner;
 
 public class Field {

@@ -1,6 +1,8 @@
-package com.etu;
+package com.etu.controller;
 
-import java.awt.*;
+import com.etu.model.Model;
+import com.etu.view.View;
+
 import java.util.HashMap;
 import java.util.Map;
 

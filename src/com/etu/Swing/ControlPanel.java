@@ -1,4 +1,4 @@
-package com.etu;
+package com.etu.Swing;
 
 import javax.swing.*;
 import java.awt.*;
