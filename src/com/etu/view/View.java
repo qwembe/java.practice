@@ -2,16 +2,16 @@ package com.etu.view;
 
 import com.etu.model.Field;
 import com.etu.model.Model;
-import javafx.scene.control.Cell;
 
 import java.awt.*;
+import java.text.DecimalFormat;
 
 public class View {
 
 
     private final static int HEADER_HEIGHT = 40;
 
-    private final static int CELL_SIZE = 40;
+    private final static int CELL_SIZE = 50;
     private final static int BORDER_SIZE = 5;
 
 
@@ -19,14 +19,34 @@ public class View {
 
     public void draw(Model model) {
         //drawHeader();
-        drawField(model.getField());
-        drawStart(model);
-        drawEnd(model);
-        //drawCheckPoints(model.getBonuses());
-        //drawFinishPoint(model.getFinish());
-        //drawBall(model.getBall());
+        drawField(model);
+//        drawStart(model);
+//        drawEnd(model);
+        drawHeuristic(model);
+//        drawCheckPoints(model.getBonuses());
+//        drawFinishPoint(model.getFinish());
+//        drawBall(model.getBall());
     }
 
+    private void drawHeuristic(Model model) {
+        Field field = model.getField();
+        DecimalFormat df = new DecimalFormat("#.##");
+        double[][] her = model.getHeuristic();
+        Color color = Color.INFOCELL;
+        for (int x = 0; x < field.getNumRows(); x++) {
+            for (int y = 0; y < field.getNumColumns(); y++) {
+                graphics.drawText((x)*CELL_SIZE,(y+1)*CELL_SIZE,df.format(her[y][x]),color.getRGB());
+            }
+        }
+    }
+
+    /*
+        private void drawHeuristic(Model model,int x,int y) {
+            DecimalFormat df = new DecimalFormat("#.##");
+            Color color = Color.INFOCELL;
+            graphics.drawText( (x) * CELL_SIZE , (y+1) * CELL_SIZE , df.format(model.getHeuristic(x, y)), color.getRGB());
+        }*/
+/*
     private void drawEnd(Model model) {
         Point p = model.getFinish();
         Color col = Color.FINISH;
@@ -38,7 +58,7 @@ public class View {
         Color col = Color.START;
         graphics.drawRect(p.x * CELL_SIZE,p.y * CELL_SIZE , CELL_SIZE , CELL_SIZE, col.getRGB());
     }
-
+*/
     /*
         @SuppressWarnings("SuspiciousNameCombination")
         private void drawHeader() {
@@ -47,17 +67,28 @@ public class View {
            graphics.drawRect(0, 0, CELL_SIZE * 10, 2, Color.BALL.getRGB());
         }
     */
-    private void drawField(Field field) {
+    private void drawField(Model model) {
+        Field field = model.getField();
+//        drawStart(model);
+//        drawEnd(model);
+        Point pointFinish = model.getFinish();
+        Point pointStart = model.getStart();
         for (int x = 0; x < field.getNumRows(); x++) {
             for (int y = 0; y < field.getNumColumns(); y++) {
-//                Color color = field.getSector(x, y) == Field.Sector.WALL ? Color.WALL : Color.GROUND;
                 Color color = Color.GROUND;
-                switch (field.getSector(x, y)){
-                    case WALL: color = Color.WALL; break;
-                    case FREE: color = Color.GROUND; break;
-                    case REALWAY: color = Color.WAY;break;
+                if (pointStart.x == x && pointStart.y == y) color = Color.START;
+                else {
+                    if (pointFinish.x == x && pointFinish.y == y) color = Color.FINISH;
+                    else {
+                        switch (field.getSector(x, y)){
+                            case WALL: color = Color.WALL; break;
+                            case FREE: color = Color.GROUND; break;
+                            case REALWAY: color = Color.WAY;break;
+                        }
+                    }
                 }
                 graphics.drawRect( x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, color.getRGB());
+                //drawHeuristic(model,y,x);
             }
         }
     }
@@ -121,6 +152,7 @@ public class View {
 //        HEADER(new java.awt.Color(169, 180, 192).getRGB()),
 //        BORDER(new java.awt.Color(0, 0, 0).getRGB()),
         START(java.awt.Color.BLACK.getRGB()),
+        INFOCELL(java.awt.Color.BLACK.getRGB()),
         FINISH(java.awt.Color.RED.getRGB());
 
         private final int rgb;

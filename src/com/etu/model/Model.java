@@ -14,20 +14,23 @@ public class Model {
     private double[][] heuristic;
     private double[][] function_g;
     private double[][] function_f;
+    private Point[][] from;
 
 
-    private Model(Field field, Point start, Point finish, double[][] heuristic, double[][] function_g, double[][] function_f) {
+    private Model(Field field, Point start, Point finish, double[][] heuristic, double[][] function_g, double[][] function_f, Point[][] from) {
         this.field = field;
         this.start = start;
         this.finish = finish;
         this.heuristic = heuristic;
         this.function_g = function_g;
         this.function_f = function_f;
+        this.from = from;
     }
 
 
     public static double countHeuristic(int curX, int curY, int finX, int finY){
-        return Math.sqrt(Math.pow((finY - curY), 2) + Math.pow((finX - curX), 2));
+       // return Math.sqrt(Math.pow((finY - curY), 2) + Math.pow((finX - curX), 2));
+        return Math.abs(finY - curY) + Math.abs(finX - curX);
     }
 
     public boolean isActiveFull() {
@@ -47,26 +50,26 @@ public class Model {
         Set<Point> ret = new HashSet<>();
         if(((current.x+1) >= 0) && ((current.x+1) < field.getNumColumns()))
         {
-            if ((field.getSector(current.x + 1, current.y) == Field.Sector.FREE)
-                    || (field.getSector(current.x + 1, current.y) == Field.Sector.ACTIVE))
+            if ((field.getSector(current.x + 1, current.y) == Field.Sector.ACTIVE)
+                    || (field.getSector(current.x + 1, current.y) == Field.Sector.FREE))
                 ret.add(new Point(current.x + 1, current.y));
         }
         if(((current.x-1) >= 0) && ((current.x-1) < field.getNumColumns()))
         {
-            if ((field.getSector(current.x - 1, current.y) == Field.Sector.FREE)
-                    || (field.getSector(current.x - 1, current.y) == Field.Sector.ACTIVE))
+            if ((field.getSector(current.x - 1, current.y) == Field.Sector.ACTIVE)
+                    || (field.getSector(current.x - 1, current.y) == Field.Sector.FREE))
                 ret.add(new Point(current.x - 1, current.y));
         }
         if(((current.y) >= 0) && ((current.y+1) < field.getNumRows()))
         {
-            if ((field.getSector(current.x, current.y + 1) == Field.Sector.FREE)
-                    || (field.getSector(current.x, current.y + 1) == Field.Sector.ACTIVE))
+            if ((field.getSector(current.x, current.y + 1) == Field.Sector.ACTIVE)
+                    || (field.getSector(current.x, current.y + 1) == Field.Sector.FREE))
                 ret.add(new Point(current.x, current.y + 1));
         }
         if(((current.y-1) >= 0) && ((current.y-1) < field.getNumRows()))
         {
-            if ((field.getSector(current.x, current.y - 1) == Field.Sector.FREE)
-                    || (field.getSector(current.x, current.y - 1) == Field.Sector.ACTIVE))
+            if ((field.getSector(current.x, current.y - 1) == Field.Sector.ACTIVE)
+                    || (field.getSector(current.x, current.y - 1) == Field.Sector.FREE))
 
                 ret.add(new Point(current.x, current.y - 1));
         }
@@ -96,18 +99,39 @@ public class Model {
             }
 
         }
+        Point[][] from = new Point[field.getNumRows()][field.getNumColumns()];
+        for (int i = 0; i < field.getNumRows(); i++) {
+            for (int j = 0; j < field.getNumColumns() ; j++) {
+                from[i][j] = new Point(i, j);
+            }
 
-        return new Model(field, start, finish, heuristic, function_g, function_f);
+        }
+        return new Model(field, start, finish, heuristic, function_g, function_f, from);
 
 
     }
 
 
 
+    public void setFrom(Point current, Point setter)
+    {
+        from[current.x][current.y].move(setter.x, setter.y);
 
+    }
+
+    public Point getFrom(Point current)
+    {
+        return new Point(current.x, current.y);
+    }
+
+    public Point[][] getFrom()
+    {
+        return this.from;
+    }
 
     public Point min_f()
     {
+      //  System.out.println("----------------------------------");
         double min = Double.MAX_VALUE;
         for (int i = 0; i < field.getNumRows(); i++) {
             for (int j = 0; j < field.getNumColumns(); j++) {
@@ -122,10 +146,11 @@ public class Model {
             for (int j = 0; j < field.getNumColumns(); j++) {
                 Point temp = new Point(i,j);
                 if(field.isActive(temp) && getFunction_f(temp) == min)
-                    ret.setLocation(i, j);
+                    ret.move(i, j);
             }
 
         }
+      //  System.out.println(getFunction_f(ret) +" "+ ret);
         return ret;
     }
 
@@ -169,5 +194,10 @@ public class Model {
         return heuristic;
     }
 
-
+// added by cet !
+    public int getNumRows() {return field.getNumRows();}
+//added by cet !
+    public int getNumColumns() { return field.getNumColumns();}
+// cet
+    public double getHeuristic(int x,int y) { return heuristic[x][y];}
 }

@@ -31,14 +31,15 @@ public class Controller {
         view.draw(model);
     }
 
-    private void restoreWay(Map<Point, Point> from)
+    private void restoreWay()
     {
-        Set<Point> way = from.keySet();
-        for (Point elem: way) {
-            model.getField().setSectorRealWay(elem);
-        }
-        model.getField().setSectorRealWay(model.getStart());
-        //model.getField().setSectorRealWay(model.getFinish());
+       Point current = model.getFinish();
+       while(!current.equals(model.getStart()))
+       {
+           model.getField().setSectorRealWay(current);
+           current = model.getFrom()[current.x][current.y];
+       }
+
 
     }
 
@@ -46,7 +47,8 @@ public class Controller {
     public void implementAstar() {
         double temporary_g;
         model.getField().setSectorActive(model.getStart());
-        Map from = new HashMap<Point, Point>();
+        //add map
+
         model.setFunction_g(model.getStart(), 0);
         model.setFunction_f(model.getStart(), model.getFunction_g((model.getStart())) +
                 Model.countHeuristic(model.getStart().x, model.getStart().y, model.getFinish().x, model.getFinish().y));
@@ -55,16 +57,18 @@ public class Controller {
             Point current = model.min_f();
             if(current.equals(model.getFinish()))
             {
-                restoreWay(from);
+               restoreWay();
+
             }
             model.getField().setSectorUnActive(current);
             Set<Point> neighbours = model.getNotUnActiveNeighbours(current);
+          //  System.out.println(neighbours.size());
             for (Point neighbour: neighbours) {
 
                 temporary_g = model.getFunction_g(current) + 1;
                 if(!model.getField().isActive(neighbour) || temporary_g < model.getFunction_g(neighbour))
                 {
-                    from.put(current, neighbour);
+                    model.setFrom(model.getFrom(neighbour), current);
                     model.setFunction_g(neighbour, temporary_g);
                     model.setFunction_f(neighbour, model.getFunction_g(neighbour) +
                             Model.countHeuristic(neighbour.x, neighbour.y, model.getFinish().x, model.getFinish().y));
@@ -72,6 +76,7 @@ public class Controller {
                 if(!model.getField().isActive(neighbour))
                     model.getField().setSectorActive(neighbour);
             }
+            neighbours.clear();
 
         }
 
