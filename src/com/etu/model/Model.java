@@ -78,9 +78,9 @@ public class Model {
         return ret;
     }
 
-    public static Model loadEmpty()
+    public static Model load()
     {
-        Field field = Field.loadEmpty();
+        Field field = Field.load();
         Point start = new Point(0,0);
         Point finish = start;
         double[][] heuristic = new double[10][10];

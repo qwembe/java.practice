@@ -52,7 +52,7 @@ public class Field {
 
     public void setSectorRealWay (Point current) { field[current.x][current.y] = Sector.REALWAY; }
 
-    public static Field loadEmpty()
+    public static Field load()
     {
         Sector[][] field = new Sector[10][10];
         for (int x = 0; x < 10; ++x) {
