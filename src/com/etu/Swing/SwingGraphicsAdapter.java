@@ -16,16 +16,19 @@ public class SwingGraphicsAdapter implements Graphics {
     @Override
     @SuppressWarnings("SuspiciousNameCombination")
     public void drawRect(int x, int y, int width, int height, int rgb) {
+
         graphics.setColor(new Color(rgb));
         graphics.fillRect(y, x, width, height);
+        graphics.setColor(Color.BLACK);
+        graphics.drawRect(y,x,width,height);
     }
 
-    @Override
-    @SuppressWarnings("SuspiciousNameCombination")
-    public void drawOval(int x, int y, int width, int height, int rgb) {
-        graphics.setColor(new Color(rgb));
-        graphics.fillOval(y, x, width, height);
-    }
+//    @Override
+//    @SuppressWarnings("SuspiciousNameCombination")
+//    public void drawOval(int x, int y, int width, int height, int rgb) {
+//        graphics.setColor(new Color(rgb));
+//        graphics.fillOval(y, x, width, height);
+//    }
 
     @Override
     public void drawText(int x, int y, String text, int rgb) {

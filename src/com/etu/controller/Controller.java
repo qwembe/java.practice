@@ -40,7 +40,6 @@ public class Controller {
         model.getField().setSectorRealWay(model.getStart());
         //model.getField().setSectorRealWay(model.getFinish());
 
-
     }
 
 
@@ -78,7 +77,7 @@ public class Controller {
 
 
     }
-
+/*
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         Model model = Model.load(input);
@@ -86,7 +85,7 @@ public class Controller {
         controller.implementAstar();
         model.getField().printWay();
     }
-
+*/
 
 
 

@@ -2,6 +2,9 @@ package com.etu.view;
 
 import com.etu.model.Field;
 import com.etu.model.Model;
+import javafx.scene.control.Cell;
+
+import java.awt.*;
 
 public class View {
 
@@ -17,22 +20,43 @@ public class View {
     public void draw(Model model) {
         //drawHeader();
         drawField(model.getField());
+        drawStart(model);
+        drawEnd(model);
         //drawCheckPoints(model.getBonuses());
         //drawFinishPoint(model.getFinish());
         //drawBall(model.getBall());
     }
 
-   /* @SuppressWarnings("SuspiciousNameCombination") */
-    private void drawHeader() {
-       // int height = HEADER_HEIGHT - 2;
-       graphics.drawRect(0, 0, CELL_SIZE * 10, 25, Color.WALL.getRGB());
-       graphics.drawRect(0, 0, CELL_SIZE * 10, 2, Color.BALL.getRGB());
+    private void drawEnd(Model model) {
+        Point p = model.getFinish();
+        Color col = Color.FINISH;
+        graphics.drawRect(p.x * CELL_SIZE,p.y * CELL_SIZE , CELL_SIZE , CELL_SIZE, col.getRGB());
     }
 
+    private void drawStart(Model model) {
+        Point p = model.getStart();
+        Color col = Color.START;
+        graphics.drawRect(p.x * CELL_SIZE,p.y * CELL_SIZE , CELL_SIZE , CELL_SIZE, col.getRGB());
+    }
+
+    /*
+        @SuppressWarnings("SuspiciousNameCombination")
+        private void drawHeader() {
+           // int height = HEADER_HEIGHT - 2;
+           graphics.drawRect(0, 0, CELL_SIZE * 10, 25, Color.WALL.getRGB());
+           graphics.drawRect(0, 0, CELL_SIZE * 10, 2, Color.BALL.getRGB());
+        }
+    */
     private void drawField(Field field) {
         for (int x = 0; x < field.getNumRows(); x++) {
             for (int y = 0; y < field.getNumColumns(); y++) {
-                Color color = field.getSector(x, y) == Field.Sector.WALL ? Color.WALL : Color.GROUND;
+//                Color color = field.getSector(x, y) == Field.Sector.WALL ? Color.WALL : Color.GROUND;
+                Color color = Color.GROUND;
+                switch (field.getSector(x, y)){
+                    case WALL: color = Color.WALL; break;
+                    case FREE: color = Color.GROUND; break;
+                    case REALWAY: color = Color.WAY;break;
+                }
                 graphics.drawRect( x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, color.getRGB());
             }
         }
@@ -88,13 +112,15 @@ public class View {
 
 
     private enum Color {
-        BONUS_CHECKED(java.awt.Color.GREEN.getRGB()),
-        BONUS_UNCHECKED(java.awt.Color.ORANGE.getRGB()),
-        WALL(new java.awt.Color(162, 129, 39).getRGB()),
-        GROUND(new java.awt.Color(202, 203, 204).getRGB()),
-        HEADER(new java.awt.Color(169, 180, 192).getRGB()),
-        BORDER(new java.awt.Color(0, 0, 0).getRGB()),
-        BALL(java.awt.Color.BLUE.getRGB()),
+//        BONUS_CHECKED(java.awt.Color.GREEN.getRGB()),
+//        BONUS_UNCHECKED(java.awt.Color.ORANGE.getRGB()),
+        WALL(java.awt.Color.BLUE.getRGB()),//new java.awt.Color(162, 129, 39).getRGB()),
+        GROUND(java.awt.Color.WHITE.getRGB()),//new java.awt.Color(202, 203, 204).getRGB()),
+        WAY(java.awt.Color.GREEN.getRGB()),
+//        ACTIVE(java.awt.Color.YELLOW.getRGB()),
+//        HEADER(new java.awt.Color(169, 180, 192).getRGB()),
+//        BORDER(new java.awt.Color(0, 0, 0).getRGB()),
+        START(java.awt.Color.BLACK.getRGB()),
         FINISH(java.awt.Color.RED.getRGB());
 
         private final int rgb;
