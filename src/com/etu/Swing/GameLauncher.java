@@ -81,7 +81,7 @@ public class GameLauncher extends JFrame {
     private void initListeners(){
 
         //Scanner scanner = new Scanner(GameLauncher.class.getResourceAsStream("data/level2.dat"));
-        Model model = Model.loadEmpty();
+        Model model = Model.load();
         View view = new View();
         Controller controller = new Controller(model,view);
 
