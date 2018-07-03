@@ -51,19 +51,6 @@ public class Field {
 
     public void setSectorRealWay (Point current) { field[current.x][current.y] = Sector.REALWAY; }
 
-    public void printWay() {
-        for (int i = 0; i < getNumRows(); i++) {
-            for (int j = 0; j < getNumColumns(); j++) {
-                if(field[i][j] == Sector.REALWAY)
-                {
-                    System.out.println("("+i+", "+j+")");
-                }
-            }
-        }
-
-    }
-
-
 
 
     public static Field load(Scanner input) {

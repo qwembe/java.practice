@@ -33,8 +33,8 @@ public class View {
         DecimalFormat df = new DecimalFormat("#.##");
         double[][] her = model.getHeuristic();
         Color color = Color.INFOCELL;
-        for (int x = 0; x < field.getNumRows(); x++) {
-            for (int y = 0; y < field.getNumColumns(); y++) {
+        for (int x = 0; x < field.getNumColumns(); x++) {
+            for (int y = 0; y < field.getNumRows(); y++) {
                 graphics.drawText((x)*CELL_SIZE,(y+1)*CELL_SIZE,df.format(her[y][x]),color.getRGB());
             }
         }

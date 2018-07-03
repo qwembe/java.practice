@@ -48,25 +48,25 @@ public class Model {
     public Set<Point> getNotUnActiveNeighbours(Point current)
     {
         Set<Point> ret = new HashSet<>();
-        if(((current.x+1) >= 0) && ((current.x+1) < field.getNumColumns()))
+        if(((current.x+1) >= 0) && ((current.x+1) < field.getNumRows()))
         {
             if ((field.getSector(current.x + 1, current.y) == Field.Sector.ACTIVE)
                     || (field.getSector(current.x + 1, current.y) == Field.Sector.FREE))
                 ret.add(new Point(current.x + 1, current.y));
         }
-        if(((current.x-1) >= 0) && ((current.x-1) < field.getNumColumns()))
+        if(((current.x-1) >= 0) && ((current.x-1) < field.getNumRows()))
         {
             if ((field.getSector(current.x - 1, current.y) == Field.Sector.ACTIVE)
                     || (field.getSector(current.x - 1, current.y) == Field.Sector.FREE))
                 ret.add(new Point(current.x - 1, current.y));
         }
-        if(((current.y) >= 0) && ((current.y+1) < field.getNumRows()))
+        if(((current.y) >= 0) && ((current.y+1) < field.getNumColumns()))
         {
             if ((field.getSector(current.x, current.y + 1) == Field.Sector.ACTIVE)
                     || (field.getSector(current.x, current.y + 1) == Field.Sector.FREE))
                 ret.add(new Point(current.x, current.y + 1));
         }
-        if(((current.y-1) >= 0) && ((current.y-1) < field.getNumRows()))
+        if(((current.y-1) >= 0) && ((current.y-1) < field.getNumColumns()))
         {
             if ((field.getSector(current.x, current.y - 1) == Field.Sector.ACTIVE)
                     || (field.getSector(current.x, current.y - 1) == Field.Sector.FREE))
@@ -86,7 +86,9 @@ public class Model {
             for (int j = 0; j < field.getNumColumns(); j++) {
 
                 heuristic[i][j] = countHeuristic(i, j, finish.x, finish.y);
+                System.out.print((int)heuristic[i][j] + " ");
             }
+            System.out.println(" ");
 
         }
         double[][] function_g = new double[field.getNumRows()][field.getNumColumns()];
