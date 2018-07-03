@@ -37,7 +37,8 @@ public class Controller {
         for (Point elem: way) {
             model.getField().setSectorRealWay(elem);
         }
-        model.getField().setSectorActive(model.getStart());
+        model.getField().setSectorRealWay(model.getStart());
+        model.getField().setSectorRealWay(model.getFinish());
 
     }
 
@@ -57,8 +58,9 @@ public class Controller {
                 restoreWay(from);
             }
             model.getField().setSectorUnActive(current);
-            Set<Point> neighbours = model.getField().NotUnActiveNeighbours(current);
+            Set<Point> neighbours = model.getNotUnActiveNeighbours(current);
             for (Point neighbour: neighbours) {
+
                 temporary_g = model.getFunction_g(current) + 1;
                 if(!model.getField().isActive(neighbour) || temporary_g < model.getFunction_g(neighbour))
                 {
@@ -70,6 +72,7 @@ public class Controller {
                 if(!model.getField().isActive(neighbour))
                     model.getField().setSectorActive(neighbour);
             }
+
         }
 
 
@@ -80,6 +83,7 @@ public class Controller {
         Model model = Model.load(input);
         Controller controller = new Controller(model);
         controller.implementAstar();
+        model.getField().printWay();
     }
 
 
