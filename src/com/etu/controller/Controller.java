@@ -1,10 +1,13 @@
 package com.etu.controller;
 
-import com.etu.model.Model;
+import com.etu.model.*;
 import com.etu.view.View;
 
+
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class Controller {
 
@@ -21,10 +24,45 @@ public class Controller {
         view.draw(model);
     }
 
-    public void implementAstar() {
+    private void restoreWay(Map<Point, Point> from)
+    {
+        Set<Point> way = from.keySet();
+        for (Point elem: way) {
+            model.getField().setSectorRealWay(elem);
+        }
 
-        model.getField().setSectorActive(model.getStart().x, model.getFinish().y);
-        Map from = new HashMap<>();
+
+    }
+
+    public void implementAstar() {
+        double temporary_g;
+        model.getField().setSectorActive(model.getStart());
+        Map from = new HashMap<Point, Point>();
+        model.setFunction_g(model.getStart(), 0);
+        model.setFunction_f(model.getStart(), model.getFunction_g((model.getStart())) +
+                Model.countHeuristic(model.getStart().x, model.getStart().y, model.getFinish().x, model.getFinish().y));
+        while(model.isActiveFull())
+        {
+            Point current = model.min_f();
+            if(current.equals(model.getFinish()))
+            {
+                restoreWay(from);
+            }
+            model.getField().setSectorUnActive(current);
+            Set<Point> neighbours = model.getField().NotUnActiveNeighbours(current);
+            for (Point neighbour: neighbours) {
+                temporary_g = model.getFunction_g(current) + 1;
+                if(!model.getField().isActive(neighbour) || temporary_g < model.getFunction_g(neighbour))
+                {
+                    from.put(current, neighbour);
+                    model.setFunction_g(neighbour, temporary_g);
+                    model.setFunction_f(neighbour, model.getFunction_g(neighbour) +
+                            Model.countHeuristic(neighbour.x, neighbour.y, model.getFinish().x, model.getFinish().y));
+                }
+                if(!model.getField().isActive(neighbour))
+                    model.getField().setSectorActive(neighbour);
+            }
+        }
 
 
     }
