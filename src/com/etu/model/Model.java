@@ -15,9 +15,10 @@ public class Model {
     private double[][] function_g;
     private double[][] function_f;
     private Point[][] from;
+    private StringBuilder comments;
 
 
-    private Model(Field field, Point start, Point finish, double[][] heuristic, double[][] function_g, double[][] function_f, Point[][] from) {
+    private Model(Field field, Point start, Point finish, double[][] heuristic, double[][] function_g, double[][] function_f, Point[][] from, StringBuilder comments) {
         this.field = field;
         this.start = start;
         this.finish = finish;
@@ -25,6 +26,7 @@ public class Model {
         this.function_g = function_g;
         this.function_f = function_f;
         this.from = from;
+        this.comments = comments;
     }
 
 
@@ -106,7 +108,8 @@ public class Model {
             }
 
         }
-        return new Model(field, start, finish, heuristic, function_g, function_f, from);
+        StringBuilder comments = new StringBuilder();
+        return new Model(field, start, finish, heuristic, function_g, function_f, from, comments);
     }
 
     public static Model load(Scanner scanner)
@@ -141,12 +144,16 @@ public class Model {
             }
 
         }
-        return new Model(field, start, finish, heuristic, function_g, function_f, from);
+        StringBuilder comments = new StringBuilder();
+        return new Model(field, start, finish, heuristic, function_g, function_f, from, comments);
 
 
     }
 
-
+    public StringBuilder getComments()
+    {
+        return this.comments;
+    }
 
     public void setFrom(Point current, Point setter)
     {

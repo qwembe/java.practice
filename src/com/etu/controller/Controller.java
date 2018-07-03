@@ -53,19 +53,8 @@ public class Controller {
 
     public void implementAstar() {
         double temporary_g;
-        for (int i = 0; i < 7 ; i++) {
-            System.out.println(" ");
-        }
-
-        double[][] test = model.getHeuristic();
-        for (int i = 0; i < model.getField().getNumRows() ; i++) {
-            for (int j = 0; j < model.getField().getNumColumns(); j++) {
-                System.out.print((int)test[i][j] + " ");
-            }
-            System.out.println(" ");
-
-        }
         model.getField().setSectorActive(model.getStart());
+        model.getComments().append("Добавляем стартовую клетку в OpenSet");
         //add map
 
         model.setFunction_g(model.getStart(), 0);
@@ -76,10 +65,14 @@ public class Controller {
             Point current = model.min_f();
             if(current.equals(model.getFinish()))
             {
+                model.getComments().delete(0, model.getComments().length());
+                model.getComments().append("Восстанавливаем путь: ");
                restoreWay();
 
             }
             model.getField().setSectorUnActive(current);
+            model.getComments().delete(0, model.getComments().length());
+            model.getComments().append("Удаляем клетку (" + current.x + ", " + current.y + ") из OpenSet и добавляем в ClosedSet");
             Set<Point> neighbours = model.getNotUnActiveNeighbours(current);
           //  System.out.println(neighbours.size());
             for (Point neighbour: neighbours) {
