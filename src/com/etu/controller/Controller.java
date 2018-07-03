@@ -16,7 +16,7 @@ import java.util.Set;
 
 public class Controller {
 
-    private final Model model;
+    private Model model;
     private final View view;
    // private String
 
@@ -135,6 +135,7 @@ public class Controller {
 
 
             Scanner scanner = new Scanner(GameLauncher.class.getResourceAsStream("data/" + chooser.getSelectedFile().getName()));
+            this.model = Model.load(scanner);
             update();
         }
 
