@@ -17,7 +17,8 @@ public class GameLauncher extends JFrame {
 
     private final JPanel canvas;
     private final ControlPanel toolBar;
-    private final JTextArea log;
+    private final JTextArea textArea;
+    //private final JScrollPane log;
 
 
     public GameLauncher(String title) throws HeadlessException {
@@ -30,17 +31,14 @@ public class GameLauncher extends JFrame {
 
 
         toolBar = new ControlPanel();
-        toolBar.setPreferredSize(new Dimension(700, 75));
+        toolBar.setPreferredSize(new Dimension(800, 75));
 
-        //JScrollBar hbar=new JScrollBar(JScrollBar.HORIZONTAL, 30, 20, 0, 500);
-        log = new JTextArea();
-        for(int i = 0;i <= 1000; i++) log.append("Test hello world!1111111111");
-        log.setLineWrap(true);
-//        log.se;
-//        log.setVerticalScrollBar(new JScrollBar());
-//        log.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        log.setPreferredSize(new Dimension(200, 425));
-        //log.add
+
+        textArea = new JTextArea();
+        //for(int i = 0;i <= 1000; i++) textArea.append("Test hello world!1111111111");
+        textArea.setLineWrap(true);
+        JScrollPane log = new JScrollPane(textArea);
+        log.setPreferredSize(new Dimension(300, 425));
 
         JPanel rootPanel = new JPanel();
         GridBagLayout gbl = new GridBagLayout();
@@ -55,7 +53,6 @@ public class GameLauncher extends JFrame {
         toolBarConfig(c);
         gbl.setConstraints(toolBar,c);
         rootPanel.add(toolBar);
-
 
         canvasConfig(c);
         gbl.setConstraints(canvas,c);
@@ -80,12 +77,12 @@ public class GameLauncher extends JFrame {
 
     private void initListeners(){
 
-        //Scanner scanner = new Scanner(GameLauncher.class.getResourceAsStream("data/level2.dat"));
         Model model = Model.load();
         View view = new View();
         Controller controller = new Controller(model,view);
 
         view.setGraphics(new SwingGraphicsAdapter(canvas.getGraphics()));
+        view.setLog(textArea);
 
         toolBar.loadActionListener(e -> controller.load());
         toolBar.startActionListener(e -> controller.start());
@@ -98,7 +95,7 @@ public class GameLauncher extends JFrame {
         //controller.implementAstar();
 
 
-        Timer timer = new Timer(500, e -> {
+        Timer timer = new Timer(1000, e -> {
             controller.viewUpdated();
             canvas.requestFocus();
         });

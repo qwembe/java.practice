@@ -3,6 +3,7 @@ package com.etu.view;
 import com.etu.model.Field;
 import com.etu.model.Model;
 
+import javax.swing.*;
 import java.awt.*;
 import java.text.DecimalFormat;
 
@@ -14,8 +15,16 @@ public class View {
     private final static int CELL_SIZE = 50;
     private final static int BORDER_SIZE = 5;
 
-
+    private JTextArea log;
     private Graphics graphics;
+
+    public void setLog(JTextArea log) {
+        this.log = log;
+    }
+
+    public  JTextArea getLog() {
+        return log;
+    }
 
     public void draw(Model model) {
         drawField(model);
@@ -27,6 +36,14 @@ public class View {
         DecimalFormat df = new DecimalFormat("#.##");
         double[][] her = model.getHeuristic();
         Color color = Color.INFOCELL;
+        /*
+        *Caution!
+        * Bad code
+        *|
+        *||
+        *|||
+        **
+        */
         for (int x = 0; x < field.getNumColumns(); x++) {
             for (int y = 0; y < field.getNumRows(); y++) {
                 graphics.drawText((x)*CELL_SIZE,(y+1)*CELL_SIZE,df.format(her[y][x]),color.getRGB());

@@ -28,7 +28,7 @@ public class ControlPanel extends JPanel {
     private JButton createButton(String text){//, int x, int y) {
         JButton b = new JButton(text);
         //b.setBounds(x, y, 30, 30);
-        b.setPreferredSize(new Dimension(100,25));
+        b.setPreferredSize(new Dimension(120,25));
         //b.setFocusPainted(false);
         //b.setBorder(BorderFactory.createEmptyBorder(1, 0, 0, 0));
         return b;
