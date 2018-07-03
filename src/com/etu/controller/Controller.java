@@ -61,6 +61,7 @@ public class Controller {
 
     public void implementAstar() {
         double temporary_g;
+        model.getField().setSectorActive(model.getStart());
         addCommentToLog("Добавляем стартовую клетку в OpenSet\n");
         model.setFunction_g(model.getStart(), 0);
         addCommentToLog("g(start) = 0\n");
@@ -85,21 +86,21 @@ public class Controller {
             for (Point neighbour: neighbours) {
                 addCommentToLog("Рассматриваем клетку (" + neighbour.x + ", " + neighbour.y + "):\n");
                 temporary_g = model.getFunction_g(current) + 1;
-                addCommentToLog("/tПромежуточное значение функции f для этой точки = " + temporary_g + "\n");
+                addCommentToLog("Промежуточное значение функции g для этой точки = " + temporary_g + "\n");
                 if(!model.getField().isActive(neighbour) || temporary_g < model.getFunction_g(neighbour))
                 {
                     if(!model.getField().isActive(neighbour))
-                        addCommentToLog("/tТак как клетка (" + neighbour.x + ", " + neighbour.y + ") не находится в OpenSet, то ");
+                        addCommentToLog("Так как клетка (" + neighbour.x + ", " + neighbour.y + ") не находится в OpenSet, то ");
                     else if(temporary_g < model.getFunction_g(neighbour))
-                        addCommentToLog("/tТак как значение функции g для клетки (" + neighbour.x + ", " + neighbour.y + ") меньше промежуточного, то ");
+                        addCommentToLog("Так как значение функции g для клетки (" + neighbour.x + ", " + neighbour.y + ") меньше промежуточного, то ");
                     model.setFrom(model.getFrom(neighbour), current);
                     addCommentToLog("устанавливаем, что мы пришли в эту клетку из клетки (" + current.x + ", " + current.y + ")\n");
                     model.setFunction_g(neighbour, temporary_g);
-                    addCommentToLog("/tУстанавливаем значение функции g от нее равным промежуточному значению. " +
-                                    "Теперь функция g от клетки (" + neighbour.x + ", " + neighbour.y + ") равна " + model.getFunction_f(neighbour) + "\n");
+                    addCommentToLog("Устанавливаем значение функции g от нее равным промежуточному значению. " +
+                                    "Теперь функция g от клетки (" + neighbour.x + ", " + neighbour.y + ") равна " + model.getFunction_g(neighbour) + "\n");
                     model.setFunction_f(neighbour, model.getFunction_g(neighbour) +
                             Model.countHeuristic(neighbour.x, neighbour.y, model.getFinish().x, model.getFinish().y));
-                    addCommentToLog("/tУстанавливаем значение функции f для этой клетки, как сумму значений функции g и эвристической функции." +
+                    addCommentToLog("Устанавливаем значение функции f для этой клетки, как сумму значений функции g и эвристической функции." +
                             " Теперь значение функции f от клетки (" + neighbour.x + ", " + neighbour.y + ") равно " + model.getFunction_f(neighbour) + "\n");
                 }
                 if(!model.getField().isActive(neighbour))
