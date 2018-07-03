@@ -18,6 +18,7 @@ public class Controller {
 
     private final Model model;
     private final View view;
+   // private String
 
     public Controller(Model model, View view) {
         this.model = model;
@@ -29,6 +30,8 @@ public class Controller {
         this.model = model;
         this.view = null;
     }
+
+
 
     public void viewUpdated()
     {
@@ -50,6 +53,18 @@ public class Controller {
 
     public void implementAstar() {
         double temporary_g;
+        for (int i = 0; i < 7 ; i++) {
+            System.out.println(" ");
+        }
+
+        double[][] test = model.getHeuristic();
+        for (int i = 0; i < model.getField().getNumRows() ; i++) {
+            for (int j = 0; j < model.getField().getNumColumns(); j++) {
+                System.out.print((int)test[i][j] + " ");
+            }
+            System.out.println(" ");
+
+        }
         model.getField().setSectorActive(model.getStart());
         //add map
 
