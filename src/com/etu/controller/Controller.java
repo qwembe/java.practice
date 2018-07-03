@@ -38,7 +38,7 @@ public class Controller {
             model.getField().setSectorRealWay(elem);
         }
         model.getField().setSectorRealWay(model.getStart());
-        model.getField().setSectorRealWay(model.getFinish());
+        //model.getField().setSectorRealWay(model.getFinish());
 
     }
 
