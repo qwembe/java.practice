@@ -18,7 +18,7 @@ public class Controller {
 
     private Model model;
     private final View view;
-   // private String
+
 
     public Controller(Model model, View view) {
         this.model = model;
@@ -30,8 +30,6 @@ public class Controller {
         this.model = model;
         this.view = null;
     }
-
-
 
     public void viewUpdated()
     {
@@ -150,7 +148,10 @@ public class Controller {
     }
     public void stop(){}
     public void resume(){}
-    public void restart(){}
+    public void restart(){
+        model = Model.load();
+        view.getLog().setText("");
+    }
     public void next(){}
 
 
