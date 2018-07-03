@@ -1,10 +1,14 @@
 package com.etu.controller;
 
+import com.etu.Swing.GameLauncher;
 import com.etu.model.*;
 import com.etu.view.View;
 
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -81,6 +85,11 @@ public class Controller {
         }
 
 
+
+
+
+
+
     }
 /*
     public static void main(String[] args) {
@@ -92,6 +101,46 @@ public class Controller {
     }
 */
 
+    public void update(){
+        viewUpdated();
+    }
+
+    public void load(){
+        JFileChooser fc = new JFileChooser();
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "Data input", "dat", "txt");
+        
+        File f = new File("./src/com/etu/Swing/data");//"/"+ System.getProperty("user.dir") + "/src/com.etu/controller/Swing/data");
+        chooser.setCurrentDirectory(f);//new File("/data/"));//"/"+ System.getProperty("user.dir") + "/src/com.etu/controller/Swing/data"));
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(null);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+
+
+
+            Scanner scanner = new Scanner(GameLauncher.class.getResourceAsStream("data/" + chooser.getSelectedFile().getName()));
+            update();
+        }
+
+
+
+
+        //fc.showOpenDialog();
+
+
+        //Scanner scanner = new Scanner(GameLauncher.class.getResourceAsStream("data/level2.dat"));
+        //this.model = Model.load(scanner);
+    }
+
+    public void start(){
+        implementAstar();
+        update();
+    }
+    public void stop(){}
+    public void resume(){}
+    public void restart(){}
+    public void next(){}
 
 
 }

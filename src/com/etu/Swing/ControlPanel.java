@@ -2,6 +2,7 @@ package com.etu.Swing;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class ControlPanel extends JPanel {
 
@@ -32,6 +33,15 @@ public class ControlPanel extends JPanel {
         //b.setBorder(BorderFactory.createEmptyBorder(1, 0, 0, 0));
         return b;
     }
+
+
+    public void loadActionListener(ActionListener listener){load.addActionListener(listener);}
+    public void startActionListener(ActionListener listener){start.addActionListener(listener);}
+    public void stopActionListener(ActionListener listener){stop.addActionListener(listener);}
+    public void resumeActionListener(ActionListener listener){resume.addActionListener(listener);}
+    public void restartActionListener(ActionListener listener){restart.addActionListener(listener);}
+    public void nextActionListener(ActionListener listener){next.addActionListener(listener);}
+
 
 
 }

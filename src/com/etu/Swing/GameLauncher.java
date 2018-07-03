@@ -6,6 +6,7 @@ import com.etu.view.View;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.Scanner;
 
 public class GameLauncher extends JFrame {
@@ -86,18 +87,24 @@ public class GameLauncher extends JFrame {
 
         view.setGraphics(new SwingGraphicsAdapter(canvas.getGraphics()));
 
+        toolBar.loadActionListener(e -> controller.load());
+        toolBar.startActionListener(e -> controller.start());
+        toolBar.stopActionListener(e -> controller.stop());
+        toolBar.resumeActionListener(e -> controller.resume());
+        toolBar.restartActionListener(e -> controller.restart());
+        toolBar.nextActionListener(e -> controller.restart());
 
 
-        controller.implementAstar();
+        //controller.implementAstar();
 
-
+/*
         Timer timer = new Timer(500, e -> {
             controller.viewUpdated();
-            //canvas.requestFocus();
+            canvas.requestFocus();
         });
         timer.setRepeats(true);
         timer.start();
-
+*/
 
     }
 
