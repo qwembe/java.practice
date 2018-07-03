@@ -79,7 +79,7 @@ public class GameLauncher extends JFrame {
 
     private void initListeners(){
 
-        Scanner scanner = new Scanner(GameLauncher.class.getResourceAsStream("data/level1.dat"));
+        Scanner scanner = new Scanner(GameLauncher.class.getResourceAsStream("data/level2.dat"));
         Model model = Model.load(scanner);
         View view = new View();
         Controller controller = new Controller(model,view);
@@ -88,7 +88,7 @@ public class GameLauncher extends JFrame {
 
 
 
-
+        controller.implementAstar();
 
 
         Timer timer = new Timer(50, e -> {
