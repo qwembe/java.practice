@@ -16,6 +16,7 @@ public class Field {
         this.field = field;
     }
 
+
     public int getNumRows() {
 
         return field.length;
@@ -51,7 +52,16 @@ public class Field {
 
     public void setSectorRealWay (Point current) { field[current.x][current.y] = Sector.REALWAY; }
 
-
+    public static Field loadEmpty()
+    {
+        Sector[][] field = new Sector[10][10];
+        for (int x = 0; x < 10; ++x) {
+            for (int y = 0; y < 10; ++y) {
+                field[x][y] = Sector.FREE;
+            }
+        }
+        return new Field(field);
+    }
 
     public static Field load(Scanner input) {
         int numRows = input.nextInt();

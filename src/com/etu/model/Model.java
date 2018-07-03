@@ -28,6 +28,8 @@ public class Model {
     }
 
 
+
+
     public static double countHeuristic(int curX, int curY, int finX, int finY){
         return Math.sqrt(Math.pow((finY - curY), 2) + Math.pow((finX - curX), 2));
 //        return Math.abs(finY - curY) + Math.abs(finX - curX);
@@ -74,6 +76,37 @@ public class Model {
                 ret.add(new Point(current.x, current.y - 1));
         }
         return ret;
+    }
+
+    public static Model loadEmpty()
+    {
+        Field field = Field.loadEmpty();
+        Point start = new Point(0,0);
+        Point finish = start;
+        double[][] heuristic = new double[10][10];
+        for (int i = 0; i < field.getNumRows(); i++) {
+            for (int j = 0; j < field.getNumColumns(); j++) {
+                heuristic[i][j] = 0;
+            }
+        }
+        double[][] function_g = new double[10][10];
+        double[][] function_f = new double[10][10];
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+
+                function_g[i][j] = Double.MAX_VALUE;
+                function_f[i][j] = Double.MAX_VALUE;
+            }
+
+        }
+        Point[][] from = new Point[10][10];
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                from[i][j] = new Point(i, j);
+            }
+
+        }
+        return new Model(field, start, finish, heuristic, function_g, function_f, from);
     }
 
     public static Model load(Scanner scanner)

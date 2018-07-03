@@ -24,6 +24,8 @@ public class Controller {
         this.view = null;
     }
 
+
+
     public void viewUpdated()
     {
         view.draw(model);
