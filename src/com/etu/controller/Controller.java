@@ -26,10 +26,10 @@ public class Controller {
         this.view = null;
     }
 
-   /* public void viewUpdated()
+    public void viewUpdated()
     {
         view.draw(model);
-    }*/
+    }
 
     private void restoreWay(Map<Point, Point> from)
     {
@@ -38,7 +38,6 @@ public class Controller {
             model.getField().setSectorRealWay(elem);
         }
         model.getField().setSectorActive(model.getStart());
-
 
     }
 

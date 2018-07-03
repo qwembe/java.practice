@@ -16,7 +16,8 @@ public class GameLauncher extends JFrame {
 
     private final JPanel canvas;
     private final ControlPanel toolBar;
-    private final Component log;
+    private final JTextArea log;
+
 
     public GameLauncher(String title) throws HeadlessException {
         super(title);
@@ -24,12 +25,21 @@ public class GameLauncher extends JFrame {
         canvas = new JPanel();
         canvas.setLayout(new OverlayLayout(canvas));
         canvas.setPreferredSize(new Dimension(500, 500));
+        canvas.setMinimumSize(new Dimension(500,500));
+
 
         toolBar = new ControlPanel();
         toolBar.setPreferredSize(new Dimension(700, 75));
 
-        log = new JPanel();
-        log.setPreferredSize(new Dimension(50, 50));
+        //JScrollBar hbar=new JScrollBar(JScrollBar.HORIZONTAL, 30, 20, 0, 500);
+        log = new JTextArea();
+        for(int i = 0;i <= 1000; i++) log.append("Test hello world!1111111111");
+        log.setLineWrap(true);
+//        log.se;
+//        log.setVerticalScrollBar(new JScrollBar());
+//        log.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        log.setPreferredSize(new Dimension(200, 425));
+        //log.add
 
         JPanel rootPanel = new JPanel();
         GridBagLayout gbl = new GridBagLayout();
@@ -56,9 +66,11 @@ public class GameLauncher extends JFrame {
 
         rootPanel.setLayout(gbl);
 
+
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setContentPane(rootPanel);
         pack();
+        setResizable(false);
         setLocationRelativeTo(null);
 
 
@@ -76,12 +88,17 @@ public class GameLauncher extends JFrame {
 
 
 
+
+
+
         Timer timer = new Timer(50, e -> {
             controller.viewUpdated();
             canvas.requestFocus();
         });
         timer.setRepeats(true);
         timer.start();
+
+
     }
 
     private void toolBarConfig(GridBagConstraints c) {
@@ -108,8 +125,8 @@ public class GameLauncher extends JFrame {
         c.insets = new Insets(0, 0, 0, 0);
         c.ipadx = 0;
         c.ipady = 0;
-        c.weightx = 0.5;
-        c.weighty = 0.5;
+        c.weightx = 0.0;
+        c.weighty = 0.0;
     }
 
     private void logConfig(GridBagConstraints c) {
@@ -122,8 +139,8 @@ public class GameLauncher extends JFrame {
         c.insets = new Insets(0, 0, 0, 0);
         c.ipadx = 0;
         c.ipady = 0;
-        c.weightx = 0.5;
-        c.weighty = 0.5;
+        c.weightx = 0.0;
+        c.weighty = 0.0;
     }
 
 }
