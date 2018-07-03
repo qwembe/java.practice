@@ -169,5 +169,10 @@ public class Model {
         return heuristic;
     }
 
-
+// added by cet !
+    public int getNumRows() {return field.getNumRows();}
+//added by cet !
+    public int getNumColumns() { return field.getNumColumns();}
+// cet
+    public double getHeuristic(int x,int y) { return heuristic[x][y];}
 }
