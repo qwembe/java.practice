@@ -18,14 +18,8 @@ public class View {
     private Graphics graphics;
 
     public void draw(Model model) {
-        //drawHeader();
         drawField(model);
-//        drawStart(model);
-//        drawEnd(model);
         drawHeuristic(model);
-//        drawCheckPoints(model.getBonuses());
-//        drawFinishPoint(model.getFinish());
-//        drawBall(model.getBall());
     }
 
     private void drawHeuristic(Model model) {
@@ -40,37 +34,8 @@ public class View {
         }
     }
 
-    /*
-        private void drawHeuristic(Model model,int x,int y) {
-            DecimalFormat df = new DecimalFormat("#.##");
-            Color color = Color.INFOCELL;
-            graphics.drawText( (x) * CELL_SIZE , (y+1) * CELL_SIZE , df.format(model.getHeuristic(x, y)), color.getRGB());
-        }*/
-/*
-    private void drawEnd(Model model) {
-        Point p = model.getFinish();
-        Color col = Color.FINISH;
-        graphics.drawRect(p.x * CELL_SIZE,p.y * CELL_SIZE , CELL_SIZE , CELL_SIZE, col.getRGB());
-    }
-
-    private void drawStart(Model model) {
-        Point p = model.getStart();
-        Color col = Color.START;
-        graphics.drawRect(p.x * CELL_SIZE,p.y * CELL_SIZE , CELL_SIZE , CELL_SIZE, col.getRGB());
-    }
-*/
-    /*
-        @SuppressWarnings("SuspiciousNameCombination")
-        private void drawHeader() {
-           // int height = HEADER_HEIGHT - 2;
-           graphics.drawRect(0, 0, CELL_SIZE * 10, 25, Color.WALL.getRGB());
-           graphics.drawRect(0, 0, CELL_SIZE * 10, 2, Color.BALL.getRGB());
-        }
-    */
     private void drawField(Model model) {
         Field field = model.getField();
-//        drawStart(model);
-//        drawEnd(model);
         Point pointFinish = model.getFinish();
         Point pointStart = model.getStart();
         for (int x = 0; x < field.getNumRows(); x++) {
@@ -88,54 +53,10 @@ public class View {
                     }
                 }
                 graphics.drawRect( x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, color.getRGB());
-                //drawHeuristic(model,y,x);
             }
         }
     }
-/*
-    private void drawCheckPoints(Set<CheckPoint> bonuses) {
-        int bonusesTaken = 0;
-        for (CheckPoint bonus : bonuses) {
-            Point position = bonus.getPosition();
-            int x = position.getX() * CELL_SIZE + CELL_SIZE / 3;
-            int y = position.getY() * CELL_SIZE + CELL_SIZE / 3;
-            Color color;
-            if (bonus.isChecked()) {
-                color = Color.BONUS_CHECKED;
-                ++bonusesTaken;
-            } else {
-                color = Color.BONUS_UNCHECKED;
-            }
-            graphics.drawOval(HEADER_HEIGHT +  x, y, CELL_SIZE / 4, CELL_SIZE / 4, color.getRGB());
-        }
-        Color textColor = bonusesTaken == bonuses.size() ? Color.BONUS_CHECKED : Color.BONUS_UNCHECKED;
-        graphics.drawText(20, 25, "Bonuses taken: " + bonusesTaken + " / " + bonuses.size(), textColor.getRGB());
-    }
 
-    private void drawFinishPoint(CheckPoint finish) {
-        Point position = finish.getPosition();
-        int x = position.getX() * CELL_SIZE + CELL_SIZE / 4;
-        int y = position.getY() * CELL_SIZE + CELL_SIZE / 4;
-        graphics.drawOval(HEADER_HEIGHT + x, y, CELL_SIZE / 2, CELL_SIZE / 2, Color.FINISH.getRGB());
-    }
-
-    private void drawBall(Point ball) {
-        int x = ball.getX() * CELL_SIZE + CELL_SIZE / 4;
-        int y = ball.getY() * CELL_SIZE + CELL_SIZE / 4;
-        graphics.drawOval(HEADER_HEIGHT + x, y, CELL_SIZE / 2, CELL_SIZE / 2, Color.BALL.getRGB());
-    }
-*/
-
-
-/*
-    public void showCongratsDialog() {
-        graphics.showCongratsDialog();
-    }
-
-    public void showNeedMoreBonusesDialog() {
-        graphics.showNeedMoreBonusesDialog();
-    }
-*/
 
     public void setGraphics(Graphics graphics) {
         this.graphics = graphics;
