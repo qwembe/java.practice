@@ -29,8 +29,8 @@ public class Model {
 
 
     public static double countHeuristic(int curX, int curY, int finX, int finY){
-       // return Math.sqrt(Math.pow((finY - curY), 2) + Math.pow((finX - curX), 2));
-        return Math.abs(finY - curY) + Math.abs(finX - curX);
+        return Math.sqrt(Math.pow((finY - curY), 2) + Math.pow((finX - curX), 2));
+//        return Math.abs(finY - curY) + Math.abs(finX - curX);
     }
 
     public boolean isActiveFull() {
@@ -196,10 +196,4 @@ public class Model {
         return heuristic;
     }
 
-// added by cet !
-    public int getNumRows() {return field.getNumRows();}
-//added by cet !
-    public int getNumColumns() { return field.getNumColumns();}
-// cet
-    public double getHeuristic(int x,int y) { return heuristic[x][y];}
 }
