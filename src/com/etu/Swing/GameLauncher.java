@@ -38,7 +38,7 @@ public class GameLauncher extends JFrame {
         //for(int i = 0;i <= 1000; i++) textArea.append("Test hello world!1111111111");
         textArea.setLineWrap(true);
         JScrollPane log = new JScrollPane(textArea);
-        log.setPreferredSize(new Dimension(300, 425));
+        log.setPreferredSize(new Dimension(350, 425));
 
         JPanel rootPanel = new JPanel();
         GridBagLayout gbl = new GridBagLayout();
@@ -95,7 +95,7 @@ public class GameLauncher extends JFrame {
         //controller.implementAstar();
 
 
-        Timer timer = new Timer(1000, e -> {
+        Timer timer = new Timer(500, e -> {
             controller.viewUpdated();
             canvas.requestFocus();
         });
