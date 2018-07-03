@@ -2,7 +2,9 @@ package com.etu.model;
 
 
 import java.awt.*;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Model {
 
@@ -38,6 +40,37 @@ public class Model {
 
         }
         return flag;
+    }
+
+    public Set<Point> getNotUnActiveNeighbours(Point current)
+    {
+        Set<Point> ret = new HashSet<>();
+        if(((current.x+1) >= 0) && ((current.x+1) < field.getNumColumns()))
+        {
+            if ((field.getSector(current.x + 1, current.y) == Field.Sector.FREE)
+                    || (field.getSector(current.x + 1, current.y) == Field.Sector.ACTIVE))
+                ret.add(new Point(current.x + 1, current.y));
+        }
+        if(((current.x-1) >= 0) && ((current.x-1) < field.getNumColumns()))
+        {
+            if ((field.getSector(current.x - 1, current.y) == Field.Sector.FREE)
+                    || (field.getSector(current.x - 1, current.y) == Field.Sector.ACTIVE))
+                ret.add(new Point(current.x - 1, current.y));
+        }
+        if(((current.y) >= 0) && ((current.y+1) < field.getNumRows()))
+        {
+            if ((field.getSector(current.x, current.y + 1) == Field.Sector.FREE)
+                    || (field.getSector(current.x, current.y + 1) == Field.Sector.ACTIVE))
+                ret.add(new Point(current.x, current.y + 1));
+        }
+        if(((current.y-1) >= 0) && ((current.y-1) < field.getNumRows()))
+        {
+            if ((field.getSector(current.x, current.y - 1) == Field.Sector.FREE)
+                    || (field.getSector(current.x, current.y - 1) == Field.Sector.ACTIVE))
+
+                ret.add(new Point(current.x, current.y - 1));
+        }
+        return ret;
     }
 
     public static Model load(Scanner scanner)

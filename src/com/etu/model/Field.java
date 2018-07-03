@@ -52,18 +52,18 @@ public class Field {
     public void setSectorRealWay (Point current) { field[current.x][current.y] = Sector.REALWAY; }
 
     public void printWay() {
-        
+        for (int i = 0; i < getNumRows(); i++) {
+            for (int j = 0; j < getNumColumns(); j++) {
+                if(field[i][j] == Sector.REALWAY)
+                {
+                    System.out.println("("+i+", "+j+")");
+                }
+            }
+        }
+
     }
 
-    public Set<Point> NotUnActiveNeighbours(Point current)
-    {
-        Set<Point> ret = new HashSet<>();
-        if(field[current.x+1][current.y] != Sector.UNACTIVE) ret.add(new Point(current.x+1, current.y));
-        if(field[current.x-1][current.y] != Sector.UNACTIVE) ret.add(new Point(current.x-1, current.y));
-        if(field[current.x][current.y+1] != Sector.UNACTIVE) ret.add(new Point(current.x, current.y+1));
-        if (field[current.x][current.y-1] != Sector.UNACTIVE) ret.add(new Point(current.x, current.y-1));
-        return ret;
-    }
+
 
 
     public static Field load(Scanner input) {
@@ -85,7 +85,6 @@ public class Field {
         WALL,
         ACTIVE,
         UNACTIVE,
-        CURRENTWAY,
         REALWAY
     }
 }
