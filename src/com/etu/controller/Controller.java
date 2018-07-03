@@ -7,6 +7,7 @@ import com.etu.view.View;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 public class Controller {
@@ -19,10 +20,16 @@ public class Controller {
         this.view = view;
     }
 
-    public void viewUpdated()
+    public Controller(Model model)
+    {
+        this.model = model;
+        this.view = null;
+    }
+
+   /* public void viewUpdated()
     {
         view.draw(model);
-    }
+    }*/
 
     private void restoreWay(Map<Point, Point> from)
     {
@@ -30,9 +37,11 @@ public class Controller {
         for (Point elem: way) {
             model.getField().setSectorRealWay(elem);
         }
+        model.getField().setSectorActive(model.getStart());
 
 
     }
+
 
     public void implementAstar() {
         double temporary_g;
@@ -65,6 +74,13 @@ public class Controller {
         }
 
 
+    }
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        Model model = Model.load(input);
+        Controller controller = new Controller(model);
+        controller.implementAstar();
     }
 
 

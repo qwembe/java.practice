@@ -51,6 +51,10 @@ public class Field {
 
     public void setSectorRealWay (Point current) { field[current.x][current.y] = Sector.REALWAY; }
 
+    public void printWay() {
+        
+    }
+
     public Set<Point> NotUnActiveNeighbours(Point current)
     {
         Set<Point> ret = new HashSet<>();
