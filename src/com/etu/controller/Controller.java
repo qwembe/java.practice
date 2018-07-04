@@ -158,48 +158,50 @@ public class Controller {
         }
 
 
-        //fc.showOpenDialog();
 
-
-        //Scanner scanner = new Scanner(GameLauncher.class.getResourceAsStream("data/level2.dat"));
-        //this.model = Model.load(scanner);
     }
 
-
+    private Timer timer;
 
 
 
     public void start(){
-        //if(thr.isDaemon())
-     //   if(thr.isAlive()) {
-      //      restart();
-      //  }
-        Thread thr = new Thread(() -> {
+        if(thr == null)  thr = new Thread(() -> {
             try {
                 implementAstar();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });
-        thr.start();
+       thr.start();
+
+       timer = timer = new Timer(500, e -> {
+           next();
+           viewUpdated();
+//           controller.viewUpdated();
+//           canvas.requestFocus();
+       });
+
+       timer.start();
         update();
     }
 
         public void stop() {
-        try {
-            thr.wait();
-        } catch (InterruptedException e1) {
-            e1.printStackTrace();
-        }
+        timer.stop();
+//        try {
+//            thr.wait();
+//        } catch (InterruptedException e1) {
+//            e1.printStackTrace();
+//        }
     }
     //todo timer
     public void resume(){
-        thr.run();
+        timer.start();
     }
     public void restart(){
         model = Model.load();
         view.getLog().setText("");
-        thr.interrupt();
+        thr = null;
     }
     public synchronized void next(){
         notifyAll();
