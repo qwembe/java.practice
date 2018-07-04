@@ -165,6 +165,9 @@ public class Controller {
         //this.model = Model.load(scanner);
     }
 
+
+
+}
     public void start(){
         implementAstar();
         update();
@@ -176,6 +179,3 @@ public class Controller {
         view.getLog().setText("");
     }
     public void next(){}
-
-
-}
