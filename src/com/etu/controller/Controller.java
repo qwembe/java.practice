@@ -62,7 +62,7 @@ public class Controller {
     }
 
 
-    public void implementAstar() {
+//    public void implementAstar() {
     public void implementAstar() throws InterruptedException {
         double temporary_g;
         model.getField().setSectorActive(model.getStart());
@@ -170,9 +170,12 @@ public class Controller {
 
 
 
-}
+
     public void start(){
         //if(thr.isDaemon())
+        if(thr.isAlive()) {
+            restart();
+        }
         Thread thr = new Thread(() -> {
             try {
                 implementAstar();
@@ -183,20 +186,25 @@ public class Controller {
         thr.start();
         update();
     }
-    public void stop() throws InterruptedException {
-        thr.wait();
+    public void stop()   {
+        try {
+            thr.wait();
+        } catch (InterruptedException e1) {
+            e1.printStackTrace();
+        }
     }
+    //todo timer
     public void resume(){
         thr.run();
     }
     public void restart(){
         model = Model.load();
         view.getLog().setText("");
+        thr.interrupt();
     }
     public void next(){
-        thr.notify();
+        thr.notifyAll();
     }
 
 
 }
-    public void next(){}
