@@ -200,6 +200,8 @@ public class Model {
         return function_g[current.x][current.y];
     }
 
+    public double[][] getFunction_f() { return this.function_f; }
+
     public void setFunction_g(Point current, double setter) {
         function_g[current.x][current.y] = setter;
     }

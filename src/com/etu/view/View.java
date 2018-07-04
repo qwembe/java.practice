@@ -34,7 +34,7 @@ public class View {
     private void drawHeuristic(Model model) {
         Field field = model.getField();
         DecimalFormat df = new DecimalFormat("#.##");
-        double[][] her = model.getHeuristic();
+        double[][] her = model.getFunction_f();
         Color color = Color.INFOCELL;
         /*
         *Caution!
@@ -46,7 +46,7 @@ public class View {
         */
         for (int x = 0; x < field.getNumColumns(); x++) {
             for (int y = 0; y < field.getNumRows(); y++) {
-                graphics.drawText((x)*CELL_SIZE,(y+1)*CELL_SIZE,df.format(her[y][x]),color.getRGB());
+                graphics.drawText((x)*CELL_SIZE,(y+1)*CELL_SIZE,df.format(her[y][x] == Double.MAX_VALUE ? Double.NaN : her[y][x]),color.getRGB());
             }
         }
     }
@@ -64,7 +64,7 @@ public class View {
                     else {
                         switch (field.getSector(x, y)){
                             case ACTIVE: color = Color.ACTIVE; break;
-                            case CURRENT: color = Color.WAY; break;
+                            case CURRENT: color = Color.CURRENT; break;
                             case WALL: color = Color.WALL; break;
                             case FREE: color = Color.GROUND; break;
                             case REALWAY: color = Color.WAY;break;
@@ -87,13 +87,14 @@ public class View {
 //        BONUS_UNCHECKED(java.awt.Color.ORANGE.getRGB()),
         WALL(java.awt.Color.BLUE.getRGB()),//new java.awt.Color(162, 129, 39).getRGB()),
         GROUND(java.awt.Color.WHITE.getRGB()),//new java.awt.Color(202, 203, 204).getRGB()),
-        WAY(java.awt.Color.GREEN.getRGB()),
+        WAY(java.awt.Color.RED.getRGB()),
         ACTIVE(java.awt.Color.YELLOW.getRGB()),
 //        HEADER(new java.awt.Color(169, 180, 192).getRGB()),
 //        BORDER(new java.awt.Color(0, 0, 0).getRGB()),
         START(java.awt.Color.BLACK.getRGB()),
         INFOCELL(java.awt.Color.BLACK.getRGB()),
-        FINISH(java.awt.Color.RED.getRGB());
+        FINISH(java.awt.Color.ORANGE.getRGB()),
+        CURRENT(java.awt.Color.GREEN.getRGB());
 
         private final int rgb;
 

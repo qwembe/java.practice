@@ -64,15 +64,19 @@ public class Controller {
 
     }
 
-    private void restoreWay(Point curr)
+    private void restoreWay(Point current)
     {
-        Point current = curr;
+       // current = model.getFrom()[current.x][current.y];
         while (!current.equals(model.getStart())) {
             model.getField().setSectorCurrent(current);
             current = model.getFrom()[current.x][current.y];
         }
 
     }
+   // private void makeFree(Point curr)
+    //{
+     //   Point
+   // }
 
 
 //    public void implementAstar() {
@@ -88,6 +92,7 @@ public class Controller {
         while (model.isActiveFull()) {
             Point current = model.min_f();
             addCommentToLog("Выбираем точку (" + current.x + ", " + current.y + ") из OpenSet, так как значение функции f(current) для нее минимально\n");
+            wait();
             model.getField().setSectorCurrent(current);
             wait();
             if (current.equals(model.getFinish())) {
