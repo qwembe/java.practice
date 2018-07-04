@@ -86,10 +86,10 @@ public class GameLauncher extends JFrame {
 
         toolBar.loadActionListener(e -> controller.load());
         toolBar.startActionListener(e -> controller.start());
-        toolBar.stopActionListener(e -> controller.stop());
         toolBar.resumeActionListener(e -> controller.resume());
         toolBar.restartActionListener(e -> controller.restart());
         toolBar.nextActionListener(e -> controller.next());
+        toolBar.stopActionListener(e ->  controller.stop());
 
 
         //controller.implementAstar();
