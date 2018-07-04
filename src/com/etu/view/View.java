@@ -63,6 +63,8 @@ public class View {
                     if (pointFinish.x == x && pointFinish.y == y) color = Color.FINISH;
                     else {
                         switch (field.getSector(x, y)){
+                            case ACTIVE: color = Color.ACTIVE; break;
+                            case CURRENT: color = Color.WAY; break;
                             case WALL: color = Color.WALL; break;
                             case FREE: color = Color.GROUND; break;
                             case REALWAY: color = Color.WAY;break;
@@ -86,7 +88,7 @@ public class View {
         WALL(java.awt.Color.BLUE.getRGB()),//new java.awt.Color(162, 129, 39).getRGB()),
         GROUND(java.awt.Color.WHITE.getRGB()),//new java.awt.Color(202, 203, 204).getRGB()),
         WAY(java.awt.Color.GREEN.getRGB()),
-//        ACTIVE(java.awt.Color.YELLOW.getRGB()),
+        ACTIVE(java.awt.Color.YELLOW.getRGB()),
 //        HEADER(new java.awt.Color(169, 180, 192).getRGB()),
 //        BORDER(new java.awt.Color(0, 0, 0).getRGB()),
         START(java.awt.Color.BLACK.getRGB()),

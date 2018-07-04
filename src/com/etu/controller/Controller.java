@@ -178,21 +178,14 @@ public class Controller {
        timer = timer = new Timer(500, e -> {
            next();
            viewUpdated();
-//           controller.viewUpdated();
-//           canvas.requestFocus();
        });
 
        timer.start();
         update();
     }
 
-        public void stop() {
+    public void stop() {
         timer.stop();
-//        try {
-//            thr.wait();
-//        } catch (InterruptedException e1) {
-//            e1.printStackTrace();
-//        }
     }
     //todo timer
     public void resume(){
