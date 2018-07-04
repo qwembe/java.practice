@@ -171,6 +171,28 @@ public class Model {
         return this.from;
     }
 
+    public void clearModel()
+    {
+        this.field.clearField();
+        start.move(0,0);
+        finish.move(0,0);
+        for (int i = 0; i < field.getNumRows(); i++) {
+            for (int j = 0; j < field.getNumColumns(); j++) {
+
+                function_g[i][j] = Double.MAX_VALUE;
+                function_f[i][j] = Double.MAX_VALUE;
+            }
+
+        }
+        for (int i = 0; i < field.getNumRows(); i++) {
+            for (int j = 0; j < field.getNumColumns(); j++) {
+                from[i][j] = new Point(i, j);
+            }
+            comments.delete(0, comments.length());
+        }
+
+    }
+
     public Point min_f()
     {
       //  System.out.println("----------------------------------");

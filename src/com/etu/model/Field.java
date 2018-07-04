@@ -69,6 +69,15 @@ public class Field {
         return new Field(field);
     }
 
+    public void clearField()
+    {
+        for (int x = 0; x < getNumRows(); ++x) {
+            for (int y = 0; y < getNumColumns(); ++y) {
+                field[x][y] = Sector.FREE;
+            }
+        }
+    }
+
     public static Field load(Scanner input) {
         int numRows = input.nextInt();
         int numColumns = input.nextInt();
