@@ -63,6 +63,7 @@ public class Controller {
 
 
     public void implementAstar() {
+    public void implementAstar() throws InterruptedException {
         double temporary_g;
         model.getField().setSectorActive(model.getStart());
         addCommentToLog("Добавляем стартовую клетку в OpenSet\n");
@@ -74,6 +75,7 @@ public class Controller {
         while(model.isActiveFull())
         {
             Point current = model.min_f();
+            wait();
             addCommentToLog("Выбираем точку (" + current.x + ", " + current.y + ") из OpenSet, так как значение функции f(current) для нее минимально\n");
             if(current.equals(model.getFinish()))
             {
@@ -166,9 +168,18 @@ public class Controller {
         //this.model = Model.load(scanner);
     }
 
+
+
+}
     public void start(){
         //if(thr.isDaemon())
-        Thread thr = new Thread(() -> implementAstar());
+        Thread thr = new Thread(() -> {
+            try {
+                implementAstar();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
         thr.start();
         update();
     }
@@ -188,3 +199,4 @@ public class Controller {
 
 
 }
+    public void next(){}
