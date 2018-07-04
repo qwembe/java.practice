@@ -38,6 +38,14 @@ public class Controller {
         updatelog();
     }
 
+    public synchronized void waiter() throws InterruptedException {
+        thr.wait();
+    }
+
+    public synchronized void notifier()
+    {
+        notifyAll();
+    }
 
     public void viewUpdated() {
         view.draw(model);
@@ -58,7 +66,7 @@ public class Controller {
 
 
 //    public void implementAstar() {
-    public void implementAstar() throws InterruptedException {
+    public synchronized void implementAstar() throws InterruptedException {
         double temporary_g;
         model.getField().setSectorActive(model.getStart());
         addCommentToLog("Добавляем стартовую клетку в OpenSet\n");
@@ -70,6 +78,7 @@ public class Controller {
         while (model.isActiveFull()) {
             Point current = model.min_f();
             addCommentToLog("Выбираем точку (" + current.x + ", " + current.y + ") из OpenSet, так как значение функции f(current) для нее минимально\n");
+            model.getField().setSectorCurrent(current);
             wait();
             if (current.equals(model.getFinish())) {
                 addCommentToLog("Восстанавливаем путь: \n");
@@ -157,14 +166,14 @@ public class Controller {
     }
 
 
-    public void start() {
+
 
 
     public void start(){
         //if(thr.isDaemon())
-        if(thr.isAlive()) {
-            restart();
-        }
+     //   if(thr.isAlive()) {
+      //      restart();
+      //  }
         Thread thr = new Thread(() -> {
             try {
                 implementAstar();
@@ -176,15 +185,7 @@ public class Controller {
         update();
     }
 
-    public void stop() {
-
-    }
-
-    public void resume() {
-    }
-
-    public void restart() {
-    public void stop()   {
+        public void stop() {
         try {
             thr.wait();
         } catch (InterruptedException e1) {
@@ -200,13 +201,11 @@ public class Controller {
         view.getLog().setText("");
         thr.interrupt();
     }
-    public void next(){
-        thr.notifyAll();
+    public synchronized void next(){
+        notifyAll();
     }
 
-    public void next() {
-        notify();
-    }
-}
 
 }
+
+

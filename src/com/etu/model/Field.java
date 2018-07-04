@@ -52,6 +52,8 @@ public class Field {
 
     public void setSectorRealWay (Point current) { field[current.x][current.y] = Sector.REALWAY; }
 
+    public void setSectorCurrent (Point current) { field[current.x][current.y] = Sector.CURRENT; }
+
     public static Field load()
     {
         Sector[][] field = new Sector[10][10];
@@ -82,6 +84,7 @@ public class Field {
         WALL,
         ACTIVE,
         UNACTIVE,
+        CURRENT,
         REALWAY
     }
 }
