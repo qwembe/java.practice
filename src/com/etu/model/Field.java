@@ -73,7 +73,8 @@ public class Field {
     {
         for (int x = 0; x < getNumRows(); ++x) {
             for (int y = 0; y < getNumColumns(); ++y) {
-                field[x][y] = Sector.FREE;
+                if(field[x][y] == Sector.CURRENT || field[x][y] == Sector.UNACTIVE || field[x][y] == Sector.REALWAY || field[x][y] == Sector.ACTIVE)
+                    field[x][y] = Sector.FREE;
             }
         }
     }

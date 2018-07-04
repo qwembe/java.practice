@@ -174,8 +174,6 @@ public class Model {
     public void clearModel()
     {
         this.field.clearField();
-        start.move(0,0);
-        finish.move(0,0);
         for (int i = 0; i < field.getNumRows(); i++) {
             for (int j = 0; j < field.getNumColumns(); j++) {
 
