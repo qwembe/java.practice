@@ -161,6 +161,7 @@ public class Controller {
 
     public void clearModel(){
         model.clear();
+        thr.interrupt();
     }
 
     public void startTimer() {

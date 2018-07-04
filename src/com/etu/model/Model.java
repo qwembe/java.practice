@@ -171,7 +171,13 @@ public class Model {
         return this.from;
     }
 
-    public void clearModel()
+
+    public void chageHeuristic()
+    {
+        
+    }
+
+    public void clear()
     {
         this.field.clearField();
         for (int i = 0; i < field.getNumRows(); i++) {
@@ -184,7 +190,7 @@ public class Model {
         }
         for (int i = 0; i < field.getNumRows(); i++) {
             for (int j = 0; j < field.getNumColumns(); j++) {
-                from[i][j] = new Point(i, j);
+                from[i][j].move(i, j);
             }
             comments.delete(0, comments.length());
         }
@@ -266,15 +272,7 @@ public class Model {
 
 
 
-    //todo test this function!!
-
-    public void clear() {
-
-        for (int i = 0; i < field.getNumRows(); i++) {
-            for (int j = 0; j < field.getNumColumns(); j++)
-                if (field.getSector(i, j) != Field.Sector.WALL) field.setSectorFree(new Point(i, j));
-        }
 
 
-    }
+
 }
