@@ -196,6 +196,8 @@ public class Model {
         return ret;
     }
 
+//    public clear
+
     public double getFunction_g(Point current) {
         return function_g[current.x][current.y];
     }
@@ -222,9 +224,7 @@ public class Model {
         return start;
     }
 
-    public void setStart(Point start) {
-        this.start = start;
-    }
+    public void setStart(Point start) { this.start = start; }
 
     public Point getFinish() {
         return finish;
@@ -238,4 +238,23 @@ public class Model {
         return heuristic;
     }
 
+    public void setWall(Point wall){ field.setSectorWall(wall); }
+
+    public void setEmpty(Point cords) { field.setSectorFree(cords);}
+
+    public boolean isWall(Point temp){ return field.getSector(temp.x,temp.y) == Field.Sector.WALL;}
+
+
+
+    //todo test this function!!
+
+    public void clear() {
+
+        for (int i = 0; i < field.getNumRows(); i++) {
+            for (int j = 0; j < field.getNumColumns(); j++)
+                if (field.getSector(i, j) != Field.Sector.WALL) field.setSectorFree(new Point(i, j));
+        }
+
+
+    }
 }

@@ -8,9 +8,8 @@ import com.etu.view.View;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -19,11 +18,14 @@ public class Controller {
     private Model model;
     private final View view;
     private Thread thr;
+    private Timer timer;
 
 
     public Controller(Model model, View view) {
         this.model = model;
         this.view = view;
+        this.thr = new Thread();
+        this.timer = new Timer(0,null);
     }
 
     public Controller(Model model) {
@@ -35,9 +37,9 @@ public class Controller {
     public void addCommentToLog(String appender) {
         model.getComments().delete(0, model.getComments().length());
         model.getComments().append(appender);
-        updatelog();
+        updateLog();
     }
-
+/*
     public synchronized void waiter() throws InterruptedException {
         thr.wait();
     }
@@ -46,7 +48,7 @@ public class Controller {
     {
         notifyAll();
     }
-
+*/
     public void viewUpdated() {
         view.draw(model);
     }
@@ -145,17 +147,66 @@ public class Controller {
     }
 */
 
-
-    public void updatelog() {
-        view.getLog().append(model.getComments().toString());
+    private void clearLog(){
+        view.getLog().setText("");
     }
 
+    private void updateLog() {
+        view.getLog().append(model.getComments().toString());
+    }
 
     public void update() {
         viewUpdated();
     }
 
+    public void clearModel(){
+        model.clear();
+    }
+
+    public void startTimer() {
+        try {
+            timer.start();
+        } catch (Exception e){
+
+        }
+        update();
+    }
+
+    public void stopTimer() {
+        try {
+            timer.stop();
+        } catch (Exception e){
+
+        }
+        update();
+    }
+
+    public void resume(){
+        startTimer();
+        update();
+    }
+
+    public void restart(){
+        model = Model.load();
+        clearLog();
+        stopTimer();
+        try {
+            thr.interrupt();
+        } catch (Exception e){
+
+        }
+//        thr = null;
+        update();
+    }
+
+    public synchronized void next(){
+        notifyAll();
+        update();
+    }
+
     public void load() {
+
+        restart();
         JFileChooser fc = new JFileChooser();
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
@@ -172,49 +223,55 @@ public class Controller {
             this.model = Model.load(scanner);
             update();
         }
-
-
-
     }
-
-    private Timer timer;
-
-
-
     public void start(){
-        if(thr == null)  thr = new Thread(() -> {
+
+        clearLog();
+        clearModel();
+        thr = new Thread(() -> {
             try {
                 implementAstar();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });
-       thr.start();
 
-       timer = timer = new Timer(500, e -> {
+       try {
+           thr.start();
+       } catch (IllegalThreadStateException e){
+            return;
+       }
+
+       timer = new Timer(500, e -> {
            next();
            viewUpdated();
        });
 
-       timer.start();
+        startTimer();
         update();
     }
 
-    public void stop() {
-        timer.stop();
+    public void mouseClick(MouseEvent e, String boxContents){
+        if(timer.isRunning()) {
+            stopTimer();
+            clearModel();
+            update();
+            return;
+        }
+        clearModel();
+        Point cords = view.getCoords(e.getPoint());
+        switch (boxContents){
+            case "Start": model.setStart(cords);break;
+            case "Finish": model.setFinish(cords);break;
+            case "Wall":
+                if (model.isWall(cords)) model.setEmpty(cords);
+                else model.setWall(cords);
+                break;
+        }
+        update();
     }
-    //todo timer
-    public void resume(){
-        timer.start();
-    }
-    public void restart(){
-        model = Model.load();
-        view.getLog().setText("");
-        thr = null;
-    }
-    public synchronized void next(){
-        notifyAll();
-    }
+
+
 
 
 }

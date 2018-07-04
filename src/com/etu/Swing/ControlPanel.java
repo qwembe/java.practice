@@ -12,6 +12,16 @@ public class ControlPanel extends JPanel {
     private final JButton resume = createButton("Continue");
     private final JButton restart = createButton("Restart");
     private final JButton next = createButton("Next step");
+    private final JComboBox box = new JComboBox(new String[] {"Start","Finish","Wall"});
+
+
+/*    private final JLabel mark = new JLabel("Enter (x,y)");
+    private final JTextField X = new JTextField(5);
+    private final JTextField Y = new JTextField(5);*/
+
+
+//     textFieldX = new JTextField(20);
+//    private final
 
     public ControlPanel() {
         super();
@@ -21,6 +31,10 @@ public class ControlPanel extends JPanel {
         add(resume);
         add(restart);
         add(next);
+        add(box);
+//        add(mark);
+//        add(X);
+//        add(Y);
         setLayout(new FlowLayout());
 
     }
@@ -35,13 +49,13 @@ public class ControlPanel extends JPanel {
     }
 
 
+    public String getBoxContents(){return box.getSelectedItem().toString();}
+
     public void loadActionListener(ActionListener listener){load.addActionListener(listener);}
     public void startActionListener(ActionListener listener){start.addActionListener(listener);}
     public void stopActionListener(ActionListener listener){stop.addActionListener(listener);}
     public void resumeActionListener(ActionListener listener){resume.addActionListener(listener);}
     public void restartActionListener(ActionListener listener){restart.addActionListener(listener);}
     public void nextActionListener(ActionListener listener){next.addActionListener(listener);}
-
-
 
 }

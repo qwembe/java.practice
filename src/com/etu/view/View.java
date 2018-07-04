@@ -28,30 +28,8 @@ public class View {
 
     public void draw(Model model) {
         drawField(model);
-//        drawHeuristic(model);
     }
-/*
-    private void drawHeuristic(Model model) {
-        Field field = model.getField();
-        Color color = Color.INFOCELL;
-        DecimalFormat df = new DecimalFormat("#.##");
-        double[][] her = model.getFunction_f();
 
-
-        *Caution!
-        * Bad code
-        *|
-        *||
-        *|||
-        **
-
-        for (int x = 0; x < field.getNumRows(); x++) {
-            for (int y = 0; y < field.getNumColumns(); y++) {
-
-            }
-        }
-    }
-*/
     private void drawField(Model model) {
         Field field = model.getField();
         Point pointFinish = model.getFinish();
@@ -71,6 +49,7 @@ public class View {
                             case WALL: color = Color.WALL; break;
                             case FREE: color = Color.GROUND; break;
                             case REALWAY: color = Color.WAY;break;
+                            case UNACTIVE: color = Color.UNACTIVE;break;
                         }
                     }
                 }
@@ -101,7 +80,8 @@ public class View {
         START(java.awt.Color.BLACK.getRGB()),
         INFOCELL(java.awt.Color.BLACK.getRGB()),
         FINISH(java.awt.Color.ORANGE.getRGB()),
-        CURRENT(java.awt.Color.GREEN.getRGB());
+        CURRENT(java.awt.Color.GREEN.getRGB()),
+        UNACTIVE(java.awt.Color.GRAY.getRGB());
 
         private final int rgb;
 
@@ -112,6 +92,11 @@ public class View {
         public int getRGB() {
             return rgb;
         }
+    }
+
+    //case of reverted field i had to revert my coords!!
+    public Point getCoords(Point mousePoint){
+        return new Point(mousePoint.y / CELL_SIZE,mousePoint.x /CELL_SIZE);
     }
 
 }

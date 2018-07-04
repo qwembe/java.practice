@@ -6,8 +6,8 @@ import com.etu.view.View;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.util.Scanner;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class GameLauncher extends JFrame {
 
@@ -89,20 +89,26 @@ public class GameLauncher extends JFrame {
         toolBar.resumeActionListener(e -> controller.resume());
         toolBar.restartActionListener(e -> controller.restart());
         toolBar.nextActionListener(e -> controller.next());
-        toolBar.stopActionListener(e ->  controller.stop());
+        toolBar.stopActionListener(e ->  controller.stopTimer());
 
+        canvas.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                controller.mouseClick(e,toolBar.getBoxContents());
+            }
+        });
 
-        //controller.implementAstar();
+        controller.viewUpdated();
+        canvas.requestFocus();
 
+/*
+        Timer timer = new Timer(1000, e -> {
 
-        Timer timer = new Timer(500, e -> {
-            controller.viewUpdated();
-            canvas.requestFocus();
         });
         timer.setRepeats(true);
         timer.start();
 
-
+*/
     }
 
     private void toolBarConfig(GridBagConstraints c) {
