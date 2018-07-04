@@ -253,12 +253,7 @@ public class Controller {
     }
 
     public void mouseClick(MouseEvent e, String boxContents){
-        if(timer.isRunning()) {
-            stopTimer();
-            clearModel();
-            update();
-            return;
-        }
+        setSafeStop();
         clearModel();
         Point cords = view.getCoords(e.getPoint());
         switch (boxContents){
@@ -272,7 +267,33 @@ public class Controller {
         update();
     }
 
+    private void setSafeStop(){
+        if(timer.isRunning()) {
+            stopTimer();
+            clearModel();
+            update();
+            return;
+        }
+        clearModel();
+    }
 
+
+    public void changeAlgorithmOnFirst() {
+        setSafeStop();
+        //System.out.print("1_1_1_1_1_1");
+        //todo Andrey добавь сюда переключатель с одного алгоритма на другой
+
+
+    }
+
+    public void changeAlgorithmOnSecond() {
+        setSafeStop();
+        //System.out.print("2_2_2_2_2_2");
+        //todo И здесь тоже (setSafeStop - не удаляй) :-)  P.S. эти штуки должны менять алгоритм, а не инициализировать
+
+
+
+    }
 
 
 }

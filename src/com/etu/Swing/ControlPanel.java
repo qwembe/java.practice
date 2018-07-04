@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+
 public class ControlPanel extends JPanel {
 
     private final JButton load = createButton("Load from file");
@@ -13,18 +14,16 @@ public class ControlPanel extends JPanel {
     private final JButton restart = createButton("Restart");
     private final JButton next = createButton("Next step");
     private final JComboBox box = new JComboBox(new String[] {"Start","Finish","Wall"});
+    private final ButtonGroup group = new ButtonGroup();
+    private final JRadioButton var1 = new JRadioButton("A-star #1", false);
+    private final JRadioButton var2 = new JRadioButton("A-star #2", true);
 
 
-/*    private final JLabel mark = new JLabel("Enter (x,y)");
-    private final JTextField X = new JTextField(5);
-    private final JTextField Y = new JTextField(5);*/
-
-
-//     textFieldX = new JTextField(20);
-//    private final
 
     public ControlPanel() {
         super();
+        group.add(var1);
+        group.add(var2);
         add(load);
         add(start);
         add(stop);
@@ -32,11 +31,9 @@ public class ControlPanel extends JPanel {
         add(restart);
         add(next);
         add(box);
-//        add(mark);
-//        add(X);
-//        add(Y);
+        add(var1);
+        add(var2);
         setLayout(new FlowLayout());
-
     }
 
     private JButton createButton(String text){//, int x, int y) {
@@ -50,6 +47,9 @@ public class ControlPanel extends JPanel {
 
 
     public String getBoxContents(){return box.getSelectedItem().toString();}
+
+    public void var_1_ActionListener(ActionListener listener){var1.addActionListener(listener);}
+    public void var_2_ActionListener(ActionListener listener){var2.addActionListener(listener);}
 
     public void loadActionListener(ActionListener listener){load.addActionListener(listener);}
     public void startActionListener(ActionListener listener){start.addActionListener(listener);}

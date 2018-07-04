@@ -98,6 +98,9 @@ public class GameLauncher extends JFrame {
             }
         });
 
+        toolBar.var_1_ActionListener(e -> controller.changeAlgorithmOnFirst());
+        toolBar.var_2_ActionListener(e -> controller.changeAlgorithmOnSecond());
+
         controller.viewUpdated();
         canvas.requestFocus();
 
