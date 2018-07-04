@@ -12,8 +12,8 @@ public class View {
 
     private final static int HEADER_HEIGHT = 40;
 
-    private final static int CELL_SIZE = 50;
-    private final static int BORDER_SIZE = 5;
+    private  static int CELL_SIZE = 50;
+    private  static int BORDER_SIZE = 5;
 
     private JTextArea log;
     private Graphics2D graphics;
@@ -28,33 +28,36 @@ public class View {
 
     public void draw(Model model) {
         drawField(model);
-        drawHeuristic(model);
+//        drawHeuristic(model);
     }
-
+/*
     private void drawHeuristic(Model model) {
         Field field = model.getField();
+        Color color = Color.INFOCELL;
         DecimalFormat df = new DecimalFormat("#.##");
         double[][] her = model.getFunction_f();
-        Color color = Color.INFOCELL;
-        /*
+
+
         *Caution!
         * Bad code
         *|
         *||
         *|||
         **
-        */
-        for (int x = 0; x < field.getNumColumns(); x++) {
-            for (int y = 0; y < field.getNumRows(); y++) {
-                graphics.drawText((x)*CELL_SIZE,(y+1)*CELL_SIZE,df.format(her[y][x] == Double.MAX_VALUE ? Double.NaN : her[y][x]),color.getRGB());
+
+        for (int x = 0; x < field.getNumRows(); x++) {
+            for (int y = 0; y < field.getNumColumns(); y++) {
+
             }
         }
     }
-
+*/
     private void drawField(Model model) {
         Field field = model.getField();
         Point pointFinish = model.getFinish();
         Point pointStart = model.getStart();
+        DecimalFormat df = new DecimalFormat("#.##");
+        double[][] her = model.getFunction_f();
         for (int x = 0; x < field.getNumRows(); x++) {
             for (int y = 0; y < field.getNumColumns(); y++) {
                 Color color = Color.GROUND;
@@ -72,6 +75,10 @@ public class View {
                     }
                 }
                 graphics.drawRect( x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, color.getRGB());
+                color = Color.INFOCELL;
+// inverted coords!!!
+                graphics.drawText((y)*CELL_SIZE,(x+1)*CELL_SIZE,df.format(her[x][y] == Double.MAX_VALUE ? Double.NaN : her[x][y]),color.getRGB());
+
             }
         }
     }
