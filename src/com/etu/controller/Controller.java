@@ -64,6 +64,16 @@ public class Controller {
 
     }
 
+    private void restoreWay(Point curr)
+    {
+        Point current = curr;
+        while (!current.equals(model.getStart())) {
+            model.getField().setSectorCurrent(current);
+            current = model.getFrom()[current.x][current.y];
+        }
+
+    }
+
 
 //    public void implementAstar() {
     public synchronized void implementAstar() throws InterruptedException {
@@ -101,6 +111,7 @@ public class Controller {
                     else if (temporary_g < model.getFunction_g(neighbour))
                         addCommentToLog("Так как значение функции g для клетки (" + neighbour.x + ", " + neighbour.y + ") меньше промежуточного, то ");
                     model.setFrom(model.getFrom(neighbour), current);
+                    restoreWay(current);
                     addCommentToLog("устанавливаем, что мы пришли в эту клетку из клетки (" + current.x + ", " + current.y + ")\n");
                     model.setFunction_g(neighbour, temporary_g);
                     addCommentToLog("Устанавливаем значение функции g от нее равным промежуточному значению. " +
