@@ -83,33 +83,33 @@ public class Controller {
     public synchronized void implementAstar() throws InterruptedException {
         double temporary_g;
         model.getField().setSectorActive(model.getStart());
-        addCommentToLog("Добавляем стартовую клетку в OpenSet\n");
+        addCommentToLog("Добавляем стартовую клетку в OpenSet\n\n");
         model.setFunction_g(model.getStart(), 0);
-        addCommentToLog("g(start) = 0\n");
+        addCommentToLog("g(start) = 0\n\n");
         model.setFunction_f(model.getStart(), model.getFunction_g((model.getStart())) +
                 Model.countHeuristic(model.getStart().x, model.getStart().y, model.getFinish().x, model.getFinish().y));
-        addCommentToLog("f(start) = g(start) + h(start) = " + model.getFunction_f(model.getStart()) + "\n");
+        addCommentToLog("f(start) = g(start) + h(start) = " + model.getFunction_f(model.getStart()) + "\n\n");
         while (model.isActiveFull()) {
             Point current = model.min_f();
-            addCommentToLog("Выбираем точку (" + current.x + ", " + current.y + ") из OpenSet, так как значение функции f(current) для нее минимально\n");
+            addCommentToLog("Выбираем точку (" + current.x + ", " + current.y + ") из OpenSet, так как значение функции f(current) для нее минимально\n\n");
             wait();
             model.getField().setSectorCurrent(current);
             wait();
             if (current.equals(model.getFinish())) {
-                addCommentToLog("Восстанавливаем путь: \n");
+                addCommentToLog("Восстанавливаем путь: \n\n");
                 restoreWay();
                 return;
 
             }
             model.getField().setSectorUnActive(current);
-            addCommentToLog("Удаляем клетку (" + current.x + ", " + current.y + ") из OpenSet и добавляем в ClosedSet\n");
+            addCommentToLog("Удаляем клетку (" + current.x + ", " + current.y + ") из OpenSet и добавляем в ClosedSet\n\n");
             Set<Point> neighbours = model.getNotUnActiveNeighbours(current);
             //  System.out.println(neighbours.size());
-            addCommentToLog("Рассматриваем всех Unclosed соседей для точки (" + current.x + ", " + current.y + "): \n");
+            addCommentToLog("Рассматриваем всех Unclosed соседей для точки (" + current.x + ", " + current.y + "): \n\n");
             for (Point neighbour : neighbours) {
-                addCommentToLog("Рассматриваем клетку (" + neighbour.x + ", " + neighbour.y + "):\n");
+                addCommentToLog("Рассматриваем клетку (" + neighbour.x + ", " + neighbour.y + "):\n\n");
                 temporary_g = model.getFunction_g(current) + 1;
-                addCommentToLog("Промежуточное значение функции g для этой точки = " + temporary_g + "\n");
+                addCommentToLog("Промежуточное значение функции g для этой точки = " + temporary_g + "\n\n");
                 if (!model.getField().isActive(neighbour) || temporary_g < model.getFunction_g(neighbour)) {
                     if (!model.getField().isActive(neighbour))
                         addCommentToLog("Так как клетка (" + neighbour.x + ", " + neighbour.y + ") не находится в OpenSet, то ");
@@ -117,18 +117,18 @@ public class Controller {
                         addCommentToLog("Так как значение функции g для клетки (" + neighbour.x + ", " + neighbour.y + ") меньше промежуточного, то ");
                     model.setFrom(model.getFrom(neighbour), current);
                     restoreWay(current);
-                    addCommentToLog("устанавливаем, что мы пришли в эту клетку из клетки (" + current.x + ", " + current.y + ")\n");
+                    addCommentToLog("устанавливаем, что мы пришли в эту клетку из клетки (" + current.x + ", " + current.y + ")\n\n");
                     model.setFunction_g(neighbour, temporary_g);
                     addCommentToLog("Устанавливаем значение функции g от нее равным промежуточному значению. " +
-                            "Теперь функция g от клетки (" + neighbour.x + ", " + neighbour.y + ") равна " + model.getFunction_g(neighbour) + "\n");
+                            "Теперь функция g от клетки (" + neighbour.x + ", " + neighbour.y + ") равна " + model.getFunction_g(neighbour) + "\n\n");
                     model.setFunction_f(neighbour, model.getFunction_g(neighbour) +
                             Model.countHeuristic(neighbour.x, neighbour.y, model.getFinish().x, model.getFinish().y));
                     addCommentToLog("Устанавливаем значение функции f для этой клетки, как сумму значений функции g и эвристической функции." +
-                            " Теперь значение функции f от клетки (" + neighbour.x + ", " + neighbour.y + ") равно " + model.getFunction_f(neighbour) + "\n");
+                            " Теперь значение функции f от клетки (" + neighbour.x + ", " + neighbour.y + ") равно " + model.getFunction_f(neighbour) + "\n\n");
                 }
                 if (!model.getField().isActive(neighbour)) {
                     model.getField().setSectorActive(neighbour);
-                    addCommentToLog("Добавляем клетку (" + neighbour.x + ", " + neighbour.y + ") в OpenSet\n");
+                    addCommentToLog("Добавляем клетку (" + neighbour.x + ", " + neighbour.y + ") в OpenSet\n\n");
                 }
             }
             neighbours.clear();
