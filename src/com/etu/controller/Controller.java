@@ -48,12 +48,14 @@ public class Controller {
     private void restoreWay()
     {
        Point current = model.getFinish();
+      //  model.getField().setSectorRealWay(model.getStart());
        while(!current.equals(model.getStart()))
        {
            model.getField().setSectorRealWay(current);
            addCommentToLog("Путь проходит через клетку (" + current.x + ", " + current.y + ")\n");
            current = model.getFrom()[current.x][current.y];
        }
+       addCommentToLog("Путь начался из клетки (" + model.getStart().x + ", " + model.getStart().y + ")\n");
 
 
     }
@@ -76,6 +78,7 @@ public class Controller {
             {
                 addCommentToLog("Восстанавливаем путь: \n");
                restoreWay();
+               return;
 
             }
             model.getField().setSectorUnActive(current);
