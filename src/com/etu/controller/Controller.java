@@ -18,6 +18,7 @@ public class Controller {
 
     private Model model;
     private final View view;
+    private Thread thr;
 
 
     public Controller(Model model, View view) {
@@ -166,10 +167,14 @@ public class Controller {
     }
 
     public void start(){
-        implementAstar();
+        //if(thr.isDaemon())
+        Thread thr = new Thread(() -> implementAstar());
+        thr.start();
         update();
     }
-    public void stop(){}
+    public void stop(){
+
+    }
     public void resume(){}
     public void restart(){
         model = Model.load();
