@@ -172,15 +172,19 @@ public class Controller {
         thr.start();
         update();
     }
-    public void stop(){
-
+    public void stop() throws InterruptedException {
+        thr.wait();
     }
-    public void resume(){}
+    public void resume(){
+        thr.run();
+    }
     public void restart(){
         model = Model.load();
         view.getLog().setText("");
     }
-    public void next(){}
+    public void next(){
+        thr.notify();
+    }
 
 
 }
