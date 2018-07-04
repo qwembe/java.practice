@@ -16,7 +16,7 @@ public class View {
     private final static int BORDER_SIZE = 5;
 
     private JTextArea log;
-    private Graphics graphics;
+    private Graphics2D graphics;
 
     public void setLog(JTextArea log) {
         this.log = log;
@@ -77,8 +77,8 @@ public class View {
     }
 
 
-    public void setGraphics(Graphics graphics) {
-        this.graphics = graphics;
+    public void setGraphics(Graphics2D graphics) {
+        this.graphics =  graphics;
     }
 
 
