@@ -63,20 +63,13 @@ public class Controller {
 
     private void restoreWay(Point current)
     {
-       // current = model.getFrom()[current.x][current.y];
         while (!current.equals(model.getStart())) {
             model.getField().setSectorCurrent(current);
             current = model.getFrom()[current.x][current.y];
         }
 
     }
-   // private void makeFree(Point curr)
-    //{
-     //   Point
-   // }
 
-
-//    public void implementAstar() {
     private synchronized void implementAstar() throws InterruptedException {
         double temporary_g;
         for (int i = 0; i < model.getField().getNumRows() ; i++) {
@@ -93,7 +86,8 @@ public class Controller {
         addCommentToLog("f(start) = g(start) + h(start) = " + model.getFunction_f(model.getStart()) + "\n\n");
         while (model.isActiveFull()) {
             Point current = model.min_f();
-            addCommentToLog("Выбираем точку (" + current.x + ", " + current.y + ") из OpenSet, так как значение функции f(current) для нее минимально\n\n");
+            addCommentToLog("Выбираем клетку (" + current.x + ", " + current.y + ") из OpenSet, " +
+                    "так как значение функции f(current) для нее минимально\n\n");
             wait();
             model.getField().setSectorCurrent(current);
             wait();
@@ -107,11 +101,11 @@ public class Controller {
             addCommentToLog("Удаляем клетку (" + current.x + ", " + current.y + ") из OpenSet и добавляем в ClosedSet\n\n");
             Set<Point> neighbours = model.getNotUnActiveNeighbours(current);
             //  System.out.println(neighbours.size());
-            addCommentToLog("Рассматриваем всех Unclosed соседей для точки (" + current.x + ", " + current.y + "): \n\n");
+            addCommentToLog("Рассматриваем всех Unclosed соседей для клетки (" + current.x + ", " + current.y + "): \n\n");
             for (Point neighbour : neighbours) {
                 addCommentToLog("Рассматриваем клетку (" + neighbour.x + ", " + neighbour.y + "):\n\n");
                 temporary_g = model.getFunction_g(current) + 1;
-                addCommentToLog("Промежуточное значение функции g для этой точки = " + temporary_g + "\n\n");
+                addCommentToLog("Промежуточное значение функции g для этой клетки = " + temporary_g + "\n\n");
                 if (!model.getField().isActive(neighbour) || temporary_g < model.getFunction_g(neighbour)) {
                     if (!model.getField().isActive(neighbour))
                         addCommentToLog("Так как клетка (" + neighbour.x + ", " + neighbour.y + ") не находится в OpenSet, то ");
@@ -139,15 +133,6 @@ public class Controller {
         addCommentToLog("Нет пути от клетки (" + model.getStart().x + ", " + model.getStart().y + ") до клетки" +
                 " (" + model.getFinish().x + ", " + model.getFinish().y + ")");
     }
-/*
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        Model model = Model.load(input);
-        Controller controller = new Controller(model);
-        controller.implementAstar();
-        model.getField().printWay();
-    }
-*/
 
     private void clearLog(){
         view.getLog().setText("");
