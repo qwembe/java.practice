@@ -84,12 +84,17 @@ public class Controller {
 //    public void implementAstar() {
     public synchronized void implementAstar() throws InterruptedException {
         double temporary_g;
+        for (int i = 0; i < model.getField().getNumRows() ; i++) {
+            for (int j = 0; j < model.getField().getNumColumns(); j++) {
+                model.getHeuristic()[i][j] = model.recountHeuristic(new Point(i, j));
+            }
+        }
         model.getField().setSectorActive(model.getStart());
         addCommentToLog("Добавляем стартовую клетку в OpenSet\n\n");
         model.setFunction_g(model.getStart(), 0);
         addCommentToLog("g(start) = 0\n\n");
         model.setFunction_f(model.getStart(), model.getFunction_g((model.getStart())) +
-                Model.countHeuristic(model.getStart().x, model.getStart().y, model.getFinish().x, model.getFinish().y));
+                model.getHeuristic()[model.getStart().x][model.getStart().y]);
         addCommentToLog("f(start) = g(start) + h(start) = " + model.getFunction_f(model.getStart()) + "\n\n");
         while (model.isActiveFull()) {
             Point current = model.min_f();
@@ -124,7 +129,7 @@ public class Controller {
                     addCommentToLog("Устанавливаем значение функции g от нее равным промежуточному значению. " +
                             "Теперь функция g от клетки (" + neighbour.x + ", " + neighbour.y + ") равна " + model.getFunction_g(neighbour) + "\n\n");
                     model.setFunction_f(neighbour, model.getFunction_g(neighbour) +
-                            Model.countHeuristic(neighbour.x, neighbour.y, model.getFinish().x, model.getFinish().y));
+                            model.getHeuristic()[neighbour.x][neighbour.y]);
                     addCommentToLog("Устанавливаем значение функции f для этой клетки, как сумму значений функции g и эвристической функции." +
                             " Теперь значение функции f от клетки (" + neighbour.x + ", " + neighbour.y + ") равно " + model.getFunction_f(neighbour) + "\n\n");
                 }
@@ -282,6 +287,8 @@ public class Controller {
         setSafeStop();
         //System.out.print("1_1_1_1_1_1");
         //todo Andrey добавь сюда переключатель с одного алгоритма на другой
+        model.setHeuristical(true);
+
 
 
     }
@@ -290,7 +297,7 @@ public class Controller {
         setSafeStop();
         //System.out.print("2_2_2_2_2_2");
         //todo И здесь тоже (setSafeStop - не удаляй) :-)  P.S. эти штуки должны менять алгоритм, а не инициализировать
-
+        model.setHeuristical(false);
 
 
     }

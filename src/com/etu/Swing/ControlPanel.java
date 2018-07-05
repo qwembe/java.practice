@@ -15,8 +15,8 @@ public class ControlPanel extends JPanel {
     private final JButton next = createButton("Next step");
     private final JComboBox box = new JComboBox(new String[] {"Start","Finish","Wall"});
     private final ButtonGroup group = new ButtonGroup();
-    private final JRadioButton var1 = new JRadioButton("A-star #1", false);
-    private final JRadioButton var2 = new JRadioButton("A-star #2", true);
+    private final JRadioButton var1 = new JRadioButton("Module heuristic", false);
+    private final JRadioButton var2 = new JRadioButton("Square heuristic", true);
 
 
 

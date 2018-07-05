@@ -16,6 +16,7 @@ public class Model {
     private double[][] function_f;
     private Point[][] from;
     private StringBuilder comments;
+    private boolean heuristical = false;
 
 
     private Model(Field field, Point start, Point finish, double[][] heuristic, double[][] function_g, double[][] function_f, Point[][] from, StringBuilder comments) {
@@ -27,10 +28,17 @@ public class Model {
         this.function_f = function_f;
         this.from = from;
         this.comments = comments;
+        this.heuristical = false;
     }
 
 
-
+    public double recountHeuristic(Point current)
+    {
+        if(!heuristical)
+            return Math.sqrt(Math.pow((finish.y - current.y), 2) + Math.pow((finish.x - current.x), 2));
+        else
+            return (Math.abs(finish.y - current.y) + Math.abs(finish.x - current.x));
+    }
 
     public static double countHeuristic(int curX, int curY, int finX, int finY){
         return Math.sqrt(Math.pow((finY - curY), 2) + Math.pow((finX - curX), 2));
@@ -47,6 +55,11 @@ public class Model {
 
         }
         return flag;
+    }
+
+
+    public void setHeuristical(boolean heuristical) {
+        this.heuristical = heuristical;
     }
 
     public Set<Point> getNotUnActiveNeighbours(Point current)
@@ -121,10 +134,10 @@ public class Model {
         for (int i = 0; i < field.getNumRows(); i++) {
             for (int j = 0; j < field.getNumColumns(); j++) {
 
-                heuristic[i][j] = countHeuristic(i, j, finish.x, finish.y);
-                System.out.print((int)heuristic[i][j] + " ");
+                heuristic[i][j] = 0;
+
             }
-            System.out.println(" ");
+
 
         }
         double[][] function_g = new double[field.getNumRows()][field.getNumColumns()];
