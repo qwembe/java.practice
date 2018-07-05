@@ -12,7 +12,11 @@ public class View {
 
     private final static int HEADER_HEIGHT = 40;
 
-    private  static int CELL_SIZE = 50;
+    private  final static int CANVAS_SIZE = 500;
+
+
+    private  static int CELL_SIZE_X ;
+    private  static int CELL_SIZE_Y ;
     private  static int BORDER_SIZE = 5;
 
     private JTextArea log;
@@ -27,8 +31,15 @@ public class View {
     }
 
     public void draw(Model model) {
+        updateCells(model.getField());
         drawField(model);
     }
+
+    private void updateCells(Field field){
+        CELL_SIZE_X = CANVAS_SIZE / field.getNumRows();
+        CELL_SIZE_Y = CANVAS_SIZE / field.getNumColumns();
+    }
+
 
     private void drawField(Model model) {
         Field field = model.getField();
@@ -53,10 +64,10 @@ public class View {
                         }
                     }
                 }
-                graphics.drawRect( x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE, color.getRGB());
+                graphics.drawRect( x * CELL_SIZE_X, y * CELL_SIZE_Y, CELL_SIZE_Y, CELL_SIZE_X, color.getRGB());
                 color = Color.INFOCELL;
 // inverted coords!!!
-                graphics.drawText((y)*CELL_SIZE,(x+1)*CELL_SIZE,df.format(her[x][y] == Double.MAX_VALUE ? Double.NaN : her[x][y]),color.getRGB());
+                graphics.drawText((y)*CELL_SIZE_Y,(x+1)*CELL_SIZE_X,df.format(her[x][y] == Double.MAX_VALUE ? Double.NaN : her[x][y]),color.getRGB());
 
             }
         }
@@ -96,7 +107,7 @@ public class View {
 
     //case of reverted field i had to revert my coords!!
     public Point getCoords(Point mousePoint){
-        return new Point(mousePoint.y / CELL_SIZE,mousePoint.x /CELL_SIZE);
+        return new Point(mousePoint.y /CELL_SIZE_X,mousePoint.x / CELL_SIZE_Y);
     }
 
 }
