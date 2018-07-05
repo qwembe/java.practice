@@ -136,6 +136,8 @@ public class Controller {
             neighbours.clear();
 
         }
+        addCommentToLog("Нет пути от клетки (" + model.getStart().x + ", " + model.getStart().y + ") до клетки" +
+                " (" + model.getFinish().x + ", " + model.getFinish().y + ")");
     }
 /*
     public static void main(String[] args) {
