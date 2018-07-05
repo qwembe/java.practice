@@ -28,13 +28,8 @@ public class Controller {
         this.timer = new Timer(0,null);
     }
 
-    public Controller(Model model) {
-        this.model = model;
-        this.view = null;
-    }
 
-
-    public void addCommentToLog(String appender) {
+    private void addCommentToLog(String appender) {
         model.getComments().delete(0, model.getComments().length());
         model.getComments().append(appender);
         updateLog();
@@ -82,7 +77,7 @@ public class Controller {
 
 
 //    public void implementAstar() {
-    public synchronized void implementAstar() throws InterruptedException {
+    private synchronized void implementAstar() throws InterruptedException {
         double temporary_g;
         for (int i = 0; i < model.getField().getNumRows() ; i++) {
             for (int j = 0; j < model.getField().getNumColumns(); j++) {
@@ -160,30 +155,22 @@ public class Controller {
         view.getLog().append(model.getComments().toString());
     }
 
-    public void update() {
+    private void update() {
         viewUpdated();
     }
 
-    public void clearModel(){
+    private void clearModel(){
         model.clear();
         thr.interrupt();
     }
 
-    public void startTimer() {
-        try {
-            timer.start();
-        } catch (Exception e){
-
-        }
+    private void startTimer() {
+        timer.start();
         update();
     }
 
     public void stopTimer() {
-        try {
-            timer.stop();
-        } catch (Exception e){
-
-        }
+        timer.stop();
         update();
     }
 
@@ -196,11 +183,7 @@ public class Controller {
         model = Model.load();
         clearLog();
         stopTimer();
-        try {
-            thr.interrupt();
-        } catch (Exception e){
-
-        }
+        thr.interrupt();
 //        thr = null;
         update();
     }
@@ -213,7 +196,7 @@ public class Controller {
     public void load() {
 
         restart();
-        JFileChooser fc = new JFileChooser();
+     //   JFileChooser fc = new JFileChooser();
         JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
                 "Data input", "dat", "txt");
@@ -285,8 +268,6 @@ public class Controller {
 
     public void changeAlgorithmOnFirst() {
         setSafeStop();
-        //System.out.print("1_1_1_1_1_1");
-        //todo Andrey добавь сюда переключатель с одного алгоритма на другой
         model.setHeuristical(true);
 
 
@@ -295,8 +276,6 @@ public class Controller {
 
     public void changeAlgorithmOnSecond() {
         setSafeStop();
-        //System.out.print("2_2_2_2_2_2");
-        //todo И здесь тоже (setSafeStop - не удаляй) :-)  P.S. эти штуки должны менять алгоритм, а не инициализировать
         model.setHeuristical(false);
 
 

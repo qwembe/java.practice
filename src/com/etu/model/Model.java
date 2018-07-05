@@ -16,7 +16,7 @@ public class Model {
     private double[][] function_f;
     private Point[][] from;
     private StringBuilder comments;
-    private boolean heuristical = false;
+    private boolean heuristical;
 
 
     private Model(Field field, Point start, Point finish, double[][] heuristic, double[][] function_g, double[][] function_f, Point[][] from, StringBuilder comments) {
@@ -40,10 +40,6 @@ public class Model {
             return (Math.abs(finish.y - current.y) + Math.abs(finish.x - current.x));
     }
 
-    public static double countHeuristic(int curX, int curY, int finX, int finY){
-        return Math.sqrt(Math.pow((finY - curY), 2) + Math.pow((finX - curX), 2));
-//        return Math.abs(finY - curY) + Math.abs(finX - curX);
-    }
 
     public boolean isActiveFull() {
         boolean flag = false;
@@ -97,7 +93,6 @@ public class Model {
     {
         Field field = Field.load();
         Point start = new Point(0,0);
-        Point finish = start;
         double[][] heuristic = new double[10][10];
         for (int i = 0; i < field.getNumRows(); i++) {
             for (int j = 0; j < field.getNumColumns(); j++) {
@@ -122,7 +117,7 @@ public class Model {
 
         }
         StringBuilder comments = new StringBuilder();
-        return new Model(field, start, finish, heuristic, function_g, function_f, from, comments);
+        return new Model(field, start, start, heuristic, function_g, function_f, from, comments);
     }
 
     public static Model load(Scanner scanner)
@@ -182,12 +177,6 @@ public class Model {
     public Point[][] getFrom()
     {
         return this.from;
-    }
-
-
-    public void chageHeuristic()
-    {
-        
     }
 
     public void clear()

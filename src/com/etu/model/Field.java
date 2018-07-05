@@ -1,12 +1,7 @@
 
 package com.etu.model;
 import java.awt.*;
-import java.util.HashSet;
-
-
-
 import java.util.Scanner;
-import java.util.Set;
 
 public class Field {
     private final Sector[][] field;
@@ -28,9 +23,7 @@ public class Field {
 
     public boolean isActive(Point current)
     {
-        if(field[current.x][current.y] == Sector.ACTIVE)
-            return true;
-        else return false;
+        return field[current.x][current.y] == Sector.ACTIVE;
     }
 
 
