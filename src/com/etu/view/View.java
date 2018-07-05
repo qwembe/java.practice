@@ -9,15 +9,11 @@ import java.text.DecimalFormat;
 
 public class View {
 
-
-    private final static int HEADER_HEIGHT = 40;
-
     private  final static int CANVAS_SIZE = 500;
 
 
     private  static int CELL_SIZE_X ;
     private  static int CELL_SIZE_Y ;
-    private  static int BORDER_SIZE = 5;
 
     private JTextArea log;
     private Graphics2D graphics;

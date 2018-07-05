@@ -196,7 +196,7 @@ public class Model {
             }
             comments.delete(0, comments.length());
         }
-
+        
     }
 
     public Point min_f()

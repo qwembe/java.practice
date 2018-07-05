@@ -1,15 +1,13 @@
 package com.etu.Swing;
 
 import com.etu.view.Graphics2D;
-
-import javax.swing.*;
 import java.awt.*;
 
 public class SwingGraphicsAdapter implements Graphics2D {
 
     private final java.awt.Graphics2D graphics;
 
-    public SwingGraphicsAdapter(java.awt.Graphics2D graphics) {
+    SwingGraphicsAdapter(java.awt.Graphics2D graphics) {
         this.graphics = graphics;
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     }

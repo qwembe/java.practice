@@ -33,7 +33,7 @@ public class Field {
         return field[x][y];
     }
 
-    public void setSectorWall(Point current){ field[current.x][current.y] = Sector.WALL;  }
+    void setSectorWall(Point current){ field[current.x][current.y] = Sector.WALL;  }
 
     public void setSectorActive(Point current)
     {
@@ -49,9 +49,9 @@ public class Field {
 
     public void setSectorCurrent (Point current) { field[current.x][current.y] = Sector.CURRENT; }
 
-    public void setSectorFree (Point current) { field[current.x][current.y] = Sector.FREE; }
+    void setSectorFree (Point current) { field[current.x][current.y] = Sector.FREE; }
 
-    public static Field load()
+    static Field load()
     {
         Sector[][] field = new Sector[10][10];
         for (int x = 0; x < 10; ++x) {
@@ -62,7 +62,7 @@ public class Field {
         return new Field(field);
     }
 
-    public void clearField()
+    void clearField()
     {
         for (int x = 0; x < getNumRows(); ++x) {
             for (int y = 0; y < getNumColumns(); ++y) {
@@ -72,7 +72,7 @@ public class Field {
         }
     }
 
-    public static Field load(Scanner input) {
+    static Field load(Scanner input) {
         int numRows = input.nextInt();
         int numColumns = input.nextInt();
 
