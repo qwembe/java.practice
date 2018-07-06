@@ -79,7 +79,7 @@ public class GameLauncher extends JFrame {
 
         Model model = Model.load();
         View view = new View();
-        Controller controller = new Controller(model,view);
+        Controller controller = new Controller(model,view,toolBar);
 
         view.setGraphics(new SwingGraphicsAdapter((Graphics2D) canvas.getGraphics()));
         view.setLog(textArea);

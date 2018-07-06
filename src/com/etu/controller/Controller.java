@@ -1,5 +1,6 @@
 package com.etu.controller;
 
+import com.etu.Swing.ControlPanel;
 import com.etu.Swing.GameLauncher;
 import com.etu.model.*;
 import com.etu.view.View;
@@ -19,12 +20,13 @@ public class Controller {
     private final View view;
     private Thread thr;
     private Timer timer;
+    private ControlPanel toolBar;
 
-
-    public Controller(Model model, View view) {
+    public Controller(Model model, View view,ControlPanel toolBar) {
         this.model = model;
         this.view = view;
         this.thr = new Thread();
+        this.toolBar = toolBar;
         this.timer = new Timer(0,null);
     }
 
@@ -168,6 +170,7 @@ public class Controller {
 
     public void restart(){
         model = Model.load();
+        setToolBarRestart();
         clearLog();
         stopTimer();
         thr.interrupt();
@@ -199,16 +202,24 @@ public class Controller {
             this.model = Model.load(scanner);
             update();
         }
+        setToolBarRestart();
     }
+
+    private void setToolBarRestart(){
+        toolBar.setRestart();
+    }
+
     public void start(){
+
 
         clearLog();
         clearModel();
+//        setToolBarRestart();
         thr = new Thread(() -> {
             try {
                 implementAstar();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+//                e.printStackTrace();
             }
         });
 
@@ -223,7 +234,7 @@ public class Controller {
            viewUpdated();
        });
 
-        startTimer();
+//        startTimer();
         update();
     }
 

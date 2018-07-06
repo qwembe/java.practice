@@ -15,6 +15,11 @@ public class View {
     private  static int CELL_SIZE_X ;
     private  static int CELL_SIZE_Y ;
 
+    private  static int ADDED_X ;
+    private  static int ADDED_Y ;
+
+    private  static int ADDED_HX;
+
     private JTextArea log;
     private Graphics2D graphics;
 
@@ -34,6 +39,11 @@ public class View {
     private void updateCells(Field field){
         CELL_SIZE_X = CANVAS_SIZE / field.getNumRows();
         CELL_SIZE_Y = CANVAS_SIZE / field.getNumColumns();
+        ADDED_X = CELL_SIZE_X / 2;
+        ADDED_Y = CELL_SIZE_Y / 2;
+        ADDED_HX = CELL_SIZE_X / 2;
+
+
     }
 
 
@@ -43,6 +53,7 @@ public class View {
         Point pointStart = model.getStart();
         DecimalFormat df = new DecimalFormat("#.##");
         double[][] her = model.getFunction_f();
+        double[][] eur = model.getHeuristic();
         for (int x = 0; x < field.getNumRows(); x++) {
             for (int y = 0; y < field.getNumColumns(); y++) {
                 Color color = Color.GROUND;
@@ -61,9 +72,14 @@ public class View {
                     }
                 }
                 graphics.drawRect( x * CELL_SIZE_X, y * CELL_SIZE_Y, CELL_SIZE_Y, CELL_SIZE_X, color.getRGB());
-                color = Color.INFOCELL;
+                color = Color.INFOCELL_1;
 // inverted coords!!!
-                graphics.drawText((y)*CELL_SIZE_Y,(x+1)*CELL_SIZE_X,df.format(her[x][y] == Double.MAX_VALUE ? Double.NaN : her[x][y]),color.getRGB());
+                if(model.getField().getNumRows() <= 16 || model.getField().getNumColumns() <= 16){
+                    graphics.drawText((y)*CELL_SIZE_Y,(x+1)*CELL_SIZE_X,df.format(her[x][y] == Double.MAX_VALUE ? Double.NaN : her[x][y]),color.getRGB());
+                    color = Color.INFOCELL_2;
+                    graphics.drawText((y)*CELL_SIZE_Y + ADDED_Y,(x+1)*CELL_SIZE_X - ADDED_X - CELL_SIZE_X /4,"(" + x + "," + y + ")",color.getRGB());
+                    graphics.drawText((y)*CELL_SIZE_Y + ADDED_Y,(x+1)*CELL_SIZE_X - ADDED_X,df.format(eur[x][y]),color.getRGB());
+                }
 
             }
         }
@@ -85,7 +101,8 @@ public class View {
 //        HEADER(new java.awt.Color(169, 180, 192).getRGB()),
 //        BORDER(new java.awt.Color(0, 0, 0).getRGB()),
         START(java.awt.Color.BLACK.getRGB()),
-        INFOCELL(java.awt.Color.BLACK.getRGB()),
+        INFOCELL_1(java.awt.Color.BLACK.getRGB()),
+        INFOCELL_2(java.awt.Color.GRAY.getRGB()),
         FINISH(java.awt.Color.ORANGE.getRGB()),
         CURRENT(java.awt.Color.GREEN.getRGB()),
         UNACTIVE(java.awt.Color.GRAY.getRGB());

@@ -16,7 +16,7 @@ public class ControlPanel extends JPanel {
     private final JComboBox box = new JComboBox(new String[] {"Start","Finish","Wall"});
     private final ButtonGroup group = new ButtonGroup();
     private final JRadioButton var1 = new JRadioButton("Module heuristic", false);
-    private final JRadioButton var2 = new JRadioButton("Square heuristic", true);
+    private final JRadioButton var2 = new JRadioButton("Square heuristic", false);
 
 
 
@@ -45,6 +45,9 @@ public class ControlPanel extends JPanel {
         return b;
     }
 
+    public void setRestart(){
+        group.clearSelection();
+    };
 
     public String getBoxContents(){return box.getSelectedItem().toString();}
 

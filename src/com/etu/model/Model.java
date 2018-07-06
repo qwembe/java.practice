@@ -122,6 +122,8 @@ public class Model {
 
     public static Model load(Scanner scanner)
     {
+
+
         Field field = Field.load(scanner);
         Point start = new Point(scanner.nextInt(), scanner.nextInt());
         Point finish = new Point(scanner.nextInt(), scanner.nextInt());
